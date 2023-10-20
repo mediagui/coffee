@@ -49,8 +49,18 @@ public class CoffeeShopService implements ApiCoffeeShopDelegate {
   }
 
   @Override
-  public ResponseEntity<ResponseDTO> getProductById(Long id) {
-    return ApiCoffeeShopDelegate.super.getProductById(id);
+  public ResponseEntity<ResponseDTO> getProductById(Integer id) {
+
+    Optional<Product> product = getOneProductUseCase.getTheProduct(id);
+
+    HttpStatus status = product.isPresent() ? HttpStatus.OK : HttpStatus.NOT_FOUND;
+
+    ResponseDTO responseDTO = new ResponseDTO();
+    responseDTO.setProduct(productDTOMapper.toDTO(product.orElse(null)));
+    return ResponseEntity.status(status).body(responseDTO);
+
+
+
   }
 
 }
