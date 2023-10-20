@@ -1,7 +1,12 @@
 package com.inatlas.domain.db.entity;
 
+import lombok.Getter;
+import lombok.Setter;
+
 import javax.persistence.*;
 
+@Getter
+@Setter
 @Entity
 public class OrderItem {
 
@@ -36,35 +41,5 @@ public class OrderItem {
     this.total = total;
   }
 
-  public int getAmount() {
-    return amount;
-  }
 
-  public void setAmount(int amount) {
-    this.amount = amount;
-  }
-
-  public ProductDB getProduct() {
-    return productDB;
-  }
-
-  public void setProduct(ProductDB productDB) {
-    this.productDB = productDB;
-  }
-
-  public double getUnitPrice() {
-    return unitPrice;
-  }
-
-  public void setUnitPrice(double unitPrice) {
-    this.unitPrice = unitPrice;
-  }
-
-  public double getTotal() {
-    return total;
-  }
-
-  public void setTotal(double total) {
-    this.total = total;
-  }
 }

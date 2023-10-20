@@ -1,18 +1,23 @@
 package com.inatlas.domain.db.entity;
 
 
+import lombok.Getter;
+import lombok.Setter;
+
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import java.time.LocalDateTime;
 
 @Entity
+@Getter
+@Setter
 public class OrderDB {
 
   @Id
   private Integer id;
   private double total;
-
   private LocalDateTime orderDate;
+  private boolean complete;
 
   public OrderDB(){}
 
@@ -20,12 +25,5 @@ public class OrderDB {
     this.id = id;
     this.total = total;
     this.orderDate = LocalDateTime.now();
-  }
-  public double getTotal() {
-    return total;
-  }
-
-  public void setTotal(double total) {
-    this.total = total;
   }
 }
