@@ -194,20 +194,20 @@ components:
     ResponseDTO:
       type: object
       properties:
-        product:
-          $ref: '#/components/schemas/ProductDTO'
         products:
           type: array
           items:
             $ref: '#/components/schemas/ProductDTO'
+        error:
+          $ref: '#/components/schemas/ErrorDTO'
     ProductDTO:
       type: object
       required:
         - id
         - name
         - price
-        - type
         - isPromotion
+        - type
       properties:
         id:
           type: integer
