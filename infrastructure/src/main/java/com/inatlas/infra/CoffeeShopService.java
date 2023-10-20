@@ -2,7 +2,6 @@ package com.inatlas.infra;
 
 import com.inatlas.domain.db.mapper.ProductDTOMapper;
 import com.inatlas.domain.entity.Product;
-import com.inatlas.domain.usecase.GetAProductUseCase;
 import com.inatlas.domain.usecase.GetAllProductsUseCase;
 import com.inatlas.domain.usecase.GetOneProductUseCase;
 import com.inatlas.infra.api.ApiCoffeeShopDelegate;
@@ -13,6 +12,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 import static java.util.Collections.EMPTY_LIST;
 
@@ -42,7 +42,9 @@ public class CoffeeShopService implements ApiCoffeeShopDelegate {
 
     HttpStatus status = products.isEmpty() ? HttpStatus.NOT_FOUND : HttpStatus.OK;
 
-    return ResponseEntity.status(status).body(new ResponseDTO(productDTOMapper.toDTOList(products)));
+    ResponseDTO responseDTO = new ResponseDTO();
+    responseDTO.setProducts(productDTOMapper.toDTOList(products));
+    return ResponseEntity.status(status).body(responseDTO);
 
   }
 
