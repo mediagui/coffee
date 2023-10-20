@@ -7,7 +7,6 @@
  */
 package com.inatlas.domain.db.mapper;
 
-import com.inatlas.domain.db.entity.ProductDB;
 import com.inatlas.domain.entity.Product;
 import com.inatlas.infra.dto.ProductDTO;
 import org.mapstruct.Mapper;
