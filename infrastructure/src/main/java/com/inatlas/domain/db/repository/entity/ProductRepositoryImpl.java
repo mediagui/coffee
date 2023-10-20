@@ -30,8 +30,8 @@ public class ProductRepositoryImpl implements ProductRepository {
    * @return A list of Product entities.
    */
   @Override
-  public List<Product> findAll() {
-    return productMapper.toDomainList(productJpaRepository.findAll());
+  public Optional<List<Product>> findAll() {
+    return Optional.ofNullable(productMapper.toDomainList(productJpaRepository.findAll()));
   }
   
   /**

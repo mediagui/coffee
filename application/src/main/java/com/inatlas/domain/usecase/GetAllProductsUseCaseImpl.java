@@ -5,6 +5,7 @@ import com.inatlas.domain.repository.ProductRepository;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
+import java.util.Optional;
 
 @Component
 public class GetAllProductsUseCaseImpl implements GetAllProductsUseCase {
@@ -16,7 +17,7 @@ public class GetAllProductsUseCaseImpl implements GetAllProductsUseCase {
   }
 
   @Override
-  public List<Product> getAllProducts() {
+  public Optional<List<Product>> getAllProducts() {
     return productRepository.findAll();
   }
 }
