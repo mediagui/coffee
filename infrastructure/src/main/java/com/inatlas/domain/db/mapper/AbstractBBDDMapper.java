@@ -4,10 +4,9 @@
  */
 package com.inatlas.domain.db.mapper;
 
-import org.mapstruct.Mapper;
 import java.util.List;
 
-public interface AbstractMapper<DOMAIN, BBDD> {
+public interface AbstractBBDDMapper<DOMAIN, BBDD> {
   DOMAIN toDomain(BBDD bbdd);
   BBDD toBBDD(DOMAIN domain);
   List<DOMAIN> toDomainList(List<BBDD> bbddList);
