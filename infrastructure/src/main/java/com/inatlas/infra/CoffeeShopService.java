@@ -1,8 +1,52 @@
 package com.inatlas.infra;
 
+import com.inatlas.domain.db.mapper.ProductDTOMapper;
+import com.inatlas.domain.entity.Product;
+import com.inatlas.domain.usecase.GetAProductUseCase;
+import com.inatlas.domain.usecase.GetAllProductsUseCase;
 import com.inatlas.infra.api.ApiCoffeeShopDelegate;
+import com.inatlas.infra.dto.OrderDTO;
+import com.inatlas.infra.dto.ResponseDTO;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
+
+import static java.util.Collections.EMPTY_LIST;
 
 @Service
 public class CoffeeShopService implements ApiCoffeeShopDelegate {
+
+  private GetAProductUseCase getAProductUseCase;
+  private GetAllProductsUseCase getAllProductsUseCase;
+  private ProductDTOMapper productDTOMapper;
+
+  public CoffeeShopService(GetAProductUseCase getAProductUseCase, GetAllProductsUseCase getAllProductsUseCase, ProductDTOMapper productDTOMapper) {
+    this.getAProductUseCase = getAProductUseCase;
+    this.getAllProductsUseCase = getAllProductsUseCase;
+    this.productDTOMapper = productDTOMapper;
+  }
+
+  @Override
+  public ResponseEntity<OrderDTO> getActualOrder() {
+    return ApiCoffeeShopDelegate.super.getActualOrder();
+  }
+
+  @Override
+  public ResponseEntity<ResponseDTO> getAllProducts() {
+
+    List<Product> products = getAllProductsUseCase.getAllProducts().orElseGet(() -> EMPTY_LIST);
+
+    HttpStatus status = products.isEmpty() ? HttpStatus.NOT_FOUND : HttpStatus.OK;
+
+    return ResponseEntity.status(status).body(new ResponseDTO(productDTOMapper.toDTOList(products)));
+
+  }
+
+  @Override
+  public ResponseEntity<ResponseDTO> getProductById(Long id) {
+    return ApiCoffeeShopDelegate.super.getProductById(id);
+  }
+
 }
