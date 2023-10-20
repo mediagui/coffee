@@ -6,7 +6,7 @@ import javax.persistence.Id;
 import java.time.LocalDateTime;
 
 @Entity
-public class Orders {
+public class OrderDB {
 
   @Id
   private Integer id;
@@ -14,9 +14,9 @@ public class Orders {
 
   private LocalDateTime orderDate;
 
-  public Orders(){}
+  public OrderDB(){}
 
-  public Orders(Integer id, double total) {
+  public OrderDB(Integer id, double total) {
     this.id = id;
     this.total = total;
     this.orderDate = LocalDateTime.now();

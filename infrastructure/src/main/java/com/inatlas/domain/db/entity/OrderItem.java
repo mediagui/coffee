@@ -16,14 +16,14 @@ public class OrderItem {
 
   @ManyToOne
   @JoinColumn(name = "order_id")
-  private Orders orders;
+  private OrderDB orderDB;
 
-  public Orders getOrder() {
-    return orders;
+  public OrderDB getOrder() {
+    return orderDB;
   }
 
-  public void setOrder(Orders orders) {
-    this.orders = orders;
+  public void setOrder(OrderDB orderDB) {
+    this.orderDB = orderDB;
   }
 
   public OrderItem() {
