@@ -11,8 +11,9 @@ public class ProductDB {
 
   private String name;
   private double price;
-
   private String type;
+
+  private boolean isPromotion;
 
   public ProductDB() {
   }
@@ -55,5 +56,13 @@ public class ProductDB {
 
   public void setType(String type) {
     this.type = type;
+  }
+
+  public boolean isPromotion() {
+    return isPromotion;
+  }
+
+  public void setPromotion(boolean promotion) {
+    this.isPromotion = promotion;
   }
 }
