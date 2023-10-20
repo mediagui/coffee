@@ -16,7 +16,7 @@ CREATE TABLE orderDB
 );
 
 
-CREATE TABLE orderItem
+CREATE TABLE orderItemDB
 (
     id        INT AUTO_INCREMENT PRIMARY KEY,
     orderId   INT NOT NULL,
