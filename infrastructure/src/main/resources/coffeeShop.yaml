@@ -32,7 +32,12 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/ErrorDTO'
-
+        501:
+          description: Not Implemented
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorDTO'
   "/api/v1/coffeeShop/product/{id}":
     get:
       summary: Get product by id
@@ -66,6 +71,12 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/ErrorDTO'
+        501:
+          description: Not Implemented
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorDTO'
   /api/v1/coffeeShop/order:
     get:
       summary: Get actual order
@@ -91,6 +102,12 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/ErrorDTO'
+        501:
+          description: Not Implemented
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorDTO'
   /api/v1/coffeeShop/order/new:
     get:
       summary: Create new order
@@ -112,6 +129,12 @@ paths:
                 $ref: '#/components/schemas/ErrorDTO'
         500:
           description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorDTO'
+        501:
+          description: Not Implemented
           content:
             application/json:
               schema:
@@ -185,6 +208,12 @@ paths:
                 $ref: '#/components/schemas/ErrorDTO'
         500:
           description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorDTO'
+        501:
+          description: Not Implemented
           content:
             application/json:
               schema:
