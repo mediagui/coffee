@@ -14,7 +14,7 @@ public class GetAProductUseCaseImpl implements GetAProductUseCase {
   }
 
   @Override
-  public Product getTheProduct(int id) {
-    return productRepository.findById(id).orElse(null);
+  public Optional<Product> getTheProduct(int id) {
+    return productRepository.findById(id);
   }
 }
