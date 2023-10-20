@@ -1,0 +1,29 @@
+# Configuración de la base de datos y consola H2
+spring:
+  datasource:
+    url: jdbc:h2:mem:testdb
+    driver-class-name: org.h2.Driver
+    username: sa
+    password: sa
+  h2:
+    console:
+      enabled: true
+      path: /h2-console
+  jpa:
+    hibernate:
+      ddl-auto: create-drop
+  profiles:
+    active: web
+coffeeShop:
+  freeEspresso:
+    numberOfLattesForPromotion: 2
+  discount5:
+    totalProducts: 8
+    discountPercentage: 0.05
+  over50:
+    amountToApplyPromotion: 50
+    mustHaveFoodAndDrink: true
+    lattePrice: 3.0
+
+debug: true
+
