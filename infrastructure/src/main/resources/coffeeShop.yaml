@@ -92,11 +92,51 @@ paths:
               schema:
                 $ref: '#/components/schemas/ErrorDTO'
   /api/v1/coffeeShop/order/new:
-    post:
+    get:
       summary: Create new order
       operationId: createNewOrder
       tags:
         - coffeeShop-controller
+      responses:
+        200:
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/OrderDTO'
+        404:
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorDTO'
+        500:
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorDTO'
+  /api/v1/coffeeShop/order/addProduct/{id}/{amount}:
+    post:
+      summary: Add product to order
+      operationId: addProductToOrder
+      tags:
+        - coffeeShop-controller
+      parameters:
+        - name: id
+          in: path
+          description: Product id
+          required: true
+          schema:
+            type: integer
+            format: int32
+        - name: amount
+          in: path
+          description: Amount of product
+          required: true
+          schema:
+            type: integer
+            format: int32
       responses:
         200:
           description: OK
