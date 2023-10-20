@@ -4,12 +4,14 @@ import com.inatlas.domain.entity.Product;
 import com.inatlas.domain.repository.ProductRepository;
 import org.springframework.stereotype.Component;
 
+import java.util.Optional;
+
 @Component
-public class GetAProductUseCaseImpl implements GetAProductUseCase {
+public class GetOneProductUseCaseImpl implements GetOneProductUseCase {
 
-  private ProductRepository productRepository;
+  private final ProductRepository productRepository;
 
-  public GetAProductUseCaseImpl(ProductRepository productRepository) {
+  public GetOneProductUseCaseImpl(ProductRepository productRepository) {
     this.productRepository = productRepository;
   }
 

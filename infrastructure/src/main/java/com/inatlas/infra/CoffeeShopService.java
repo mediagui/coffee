@@ -4,6 +4,7 @@ import com.inatlas.domain.db.mapper.ProductDTOMapper;
 import com.inatlas.domain.entity.Product;
 import com.inatlas.domain.usecase.GetAProductUseCase;
 import com.inatlas.domain.usecase.GetAllProductsUseCase;
+import com.inatlas.domain.usecase.GetOneProductUseCase;
 import com.inatlas.infra.api.ApiCoffeeShopDelegate;
 import com.inatlas.infra.dto.OrderDTO;
 import com.inatlas.infra.dto.ResponseDTO;
@@ -18,12 +19,13 @@ import static java.util.Collections.EMPTY_LIST;
 @Service
 public class CoffeeShopService implements ApiCoffeeShopDelegate {
 
-  private GetAProductUseCase getAProductUseCase;
-  private GetAllProductsUseCase getAllProductsUseCase;
-  private ProductDTOMapper productDTOMapper;
+  private final GetOneProductUseCase getOneProductUseCase;
+  private final GetAllProductsUseCase getAllProductsUseCase;
+  private final ProductDTOMapper productDTOMapper;
 
-  public CoffeeShopService(GetAProductUseCase getAProductUseCase, GetAllProductsUseCase getAllProductsUseCase, ProductDTOMapper productDTOMapper) {
-    this.getAProductUseCase = getAProductUseCase;
+
+  public CoffeeShopService(GetOneProductUseCase getOneProductUseCase, GetAllProductsUseCase getAllProductsUseCase, ProductDTOMapper productDTOMapper) {
+    this.getOneProductUseCase = getOneProductUseCase;
     this.getAllProductsUseCase = getAllProductsUseCase;
     this.productDTOMapper = productDTOMapper;
   }
