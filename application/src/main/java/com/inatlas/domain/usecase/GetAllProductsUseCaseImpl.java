@@ -10,7 +10,7 @@ import java.util.Optional;
 @Component
 public class GetAllProductsUseCaseImpl implements GetAllProductsUseCase {
 
-  private ProductRepository productRepository;
+  private final ProductRepository productRepository;
 
   public GetAllProductsUseCaseImpl(ProductRepository productRepository) {
     this.productRepository = productRepository;
