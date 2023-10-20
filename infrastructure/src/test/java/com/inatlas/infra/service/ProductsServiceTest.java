@@ -4,7 +4,6 @@ import com.inatlas.domain.db.mapper.ProductDTOMapper;
 import com.inatlas.domain.entity.Product;
 import com.inatlas.domain.usecase.GetAllProductsUseCase;
 import com.inatlas.domain.usecase.GetOneProductUseCase;
-import com.inatlas.infra.dto.OrderDTO;
 import com.inatlas.infra.dto.ProductDTO;
 import com.inatlas.infra.dto.ResponseDTO;
 import org.junit.jupiter.api.*;
@@ -13,7 +12,6 @@ import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.context.request.NativeWebRequest;
 
 import java.util.Collections;
 import java.util.List;
@@ -96,7 +94,7 @@ class ProductsServiceTest {
   @Test
   void testGetProductById_WithExistingId_ReturnsOk() {
     int productId = 1;
-    Product product = ProductUtil.generateDrinkProduct(false);
+    Product product = ProductUtil.generateDrinkProduct();
 
     when(getOneProductUseCase.getTheProduct(productId)).thenReturn(Optional.of(product));
 
@@ -106,7 +104,7 @@ class ProductsServiceTest {
     ResponseEntity<ResponseDTO> response = productsService.getProductById(productId);
 
     assertEquals(HttpStatus.OK, response.getStatusCode());
-    assertEquals(productDTO, response.getBody().getProduct());
+    assertEquals(productDTO, response.getBody().getProducts());
   }
 
   @Test
@@ -117,7 +115,7 @@ class ProductsServiceTest {
     ResponseEntity<ResponseDTO> response = productsService.getProductById(productId);
 
     assertEquals(NOT_FOUND, response.getStatusCode());
-    assertEquals(null, response.getBody().getProduct());
+    assertEquals(null, response.getBody().getProducts());
   }
 
 }

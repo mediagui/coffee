@@ -10,6 +10,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
+import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 
@@ -56,7 +57,7 @@ public class ProductsService implements ApiCoffeeShopDelegate {
 
     // We make sure that the response is always a new object
     responseDTO = new ResponseDTO();
-    responseDTO.setProduct(productDTOMapper.toDTO(product.orElse(null)));
+    responseDTO.setProducts(Collections.singletonList(productDTOMapper.toDTO(product.orElse(null))));
     return ResponseEntity.status(status).body(responseDTO);
 
   }
