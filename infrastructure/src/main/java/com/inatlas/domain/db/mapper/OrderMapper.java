@@ -8,8 +8,11 @@
 package com.inatlas.domain.db.mapper;
 
 import com.inatlas.domain.db.entity.OrderDB;
+import com.inatlas.domain.entity.Order;
+import org.mapstruct.InjectionStrategy;
 import org.mapstruct.Mapper;
 
-@Mapper(componentModel = "spring")
-public interface OrderMapper extends AbstractBBDDMapper<com.inatlas.domain.entity.Order, OrderDB> {
+@Mapper(componentModel = "spring",
+    uses = {OrderItemMapper.class}, injectionStrategy =InjectionStrategy.CONSTRUCTOR)
+public interface OrderMapper extends AbstractBBDDMapper<Order, OrderDB> {
 }
