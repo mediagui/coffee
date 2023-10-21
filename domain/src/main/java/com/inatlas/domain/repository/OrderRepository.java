@@ -5,11 +5,12 @@ import com.inatlas.domain.entity.Order;
 import java.util.Optional;
 
 public interface OrderRepository {
-  void createNewOrder();
+  Order createNewOrder();
   Optional<Order> getOrderByID(Integer id);
-  boolean setCompleted(Integer id);
-  void addProductToOrder(Integer id, Integer amount);
-  void removeProductFromOrder(Integer orderId,Integer productId);
+  void setCompleted(Integer id);
+  void addProductToOrder(Integer orderId, Integer itemId, Integer amount);
+
+  void updateItemOrderFromOrder(Integer orderId, Integer itemId, Integer amount);
 
 
 }
