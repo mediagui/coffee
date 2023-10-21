@@ -266,7 +266,7 @@ components:
         - id
         - name
         - price
-        - isPromotion
+        - promotion
         - type
       properties:
         id:
@@ -295,9 +295,11 @@ components:
     OrderDTO:
         type: object
         required:
-            - items
-            - total
-            - amount
+          - id
+          - total
+          - orderDate
+          - complete
+          - items
         properties:
           items:
             type: array
@@ -315,8 +317,10 @@ components:
             - product
             - amount
             - total
-            - isPromotion
+            - promotion
             - unitPrice
+            - price
+            - isNew
         properties:
             product:
                 $ref: '#/components/schemas/ProductDTO'
