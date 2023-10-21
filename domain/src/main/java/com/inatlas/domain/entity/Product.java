@@ -1,25 +1,27 @@
 package com.inatlas.domain.entity;
 
+import lombok.*;
+
 import java.util.Objects;
 import java.util.StringJoiner;
 
+@EqualsAndHashCode
 public class Product {
 
   private int id;
   private String name;
   private double price;
-
-  private boolean isPromotion;
   private String type;
-
+  private boolean promotion;
 
   public Product() {
   }
+
   public Product(int id, String name, double price, boolean isPromotion, String type) {
     this.id = id;
     this.name = name;
     this.price = price;
-    this.isPromotion = isPromotion;
+    this.promotion = isPromotion;
     this.type = type;
   }
 
@@ -27,20 +29,16 @@ public class Product {
     this.id = product.getId();
     this.name = product.getName();
     this.price = product.getPrice();
-    this.isPromotion = product.isPromotion();
+    this.promotion = product.isPromotion();
     this.type = product.getType();
   }
 
-  public boolean isPromotion() {
-    return isPromotion;
+  public int getId() {
+    return id;
   }
 
-  public void setPromotion(boolean promotion) {
-    isPromotion = promotion;
-  }
-
-  public void setType(String type) {
-    this.type = type;
+  public void setId(int id) {
+    this.id = id;
   }
 
   public String getName() {
@@ -59,29 +57,20 @@ public class Product {
     this.price = price;
   }
 
-  public int getId() {
-    return id;
-  }
-
-  public void setId(int id) {
-    this.id = id;
-  }
-
   public String getType() {
     return type;
   }
 
-  @Override
-  public boolean equals(Object o) {
-    if (this == o) return true;
-    if (!(o instanceof Product)) return false;
-    Product product = (Product) o;
-    return getId() == product.getId() && Double.compare(getPrice(), product.getPrice()) == 0 && isPromotion == product.isPromotion && Objects.equals(getName(), product.getName()) && Objects.equals(getType(), product.getType());
+  public void setType(String type) {
+    this.type = type;
   }
 
-  @Override
-  public int hashCode() {
-    return Objects.hash(getId(), getName(), getPrice(), isPromotion, getType());
+  public boolean isPromotion() {
+    return promotion;
+  }
+
+  public void setPromotion(boolean promotion) {
+    this.promotion = promotion;
   }
 
   @Override
