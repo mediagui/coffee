@@ -2,7 +2,6 @@ package com.inatlas.domain.entity;
 
 import lombok.*;
 
-import java.util.Objects;
 import java.util.StringJoiner;
 
 @EqualsAndHashCode

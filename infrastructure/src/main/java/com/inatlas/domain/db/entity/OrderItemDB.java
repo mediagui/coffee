@@ -3,8 +3,9 @@ package com.inatlas.domain.db.entity;
 import lombok.*;
 
 import javax.persistence.*;
+import java.util.Objects;
 
-@EqualsAndHashCode
+
 @Entity
 public class OrderItemDB {
 
@@ -71,8 +72,6 @@ public class OrderItemDB {
     this.orderDB = orderDB;
   }
 
-  //  public OrderItemDB() {
-//  }
 
   public OrderItemDB(int amount, ProductDB product, double unitPrice, double total) {
     this.amount = amount;
@@ -81,5 +80,16 @@ public class OrderItemDB {
     this.total = total;
   }
 
+  @Override
+  public boolean equals(Object o) {
+    if (this == o) return true;
+    if (!(o instanceof OrderItemDB)) return false;
+    OrderItemDB that = (OrderItemDB) o;
+    return getAmount() == that.getAmount() && Double.compare(getUnitPrice(), that.getUnitPrice()) == 0 && Double.compare(getTotal(), that.getTotal()) == 0 && Objects.equals(getId(), that.getId()) && Objects.equals(getProduct(), that.getProduct()) && Objects.equals(getOrderDB(), that.getOrderDB());
+  }
 
+  @Override
+  public int hashCode() {
+    return Objects.hash(getId(), getAmount(), getProduct(), getUnitPrice(), getTotal(), getOrderDB());
+  }
 }
