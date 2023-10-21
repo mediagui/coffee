@@ -9,7 +9,6 @@ package com.inatlas.domain.usecase;
 import com.inatlas.domain.entity.Order;
 import com.inatlas.domain.entity.Promotion;
 import com.inatlas.util.LogUtil;
-import org.springframework.boot.autoconfigure.condition.ConditionalOnNotWebApplication;
 import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Component;
 
