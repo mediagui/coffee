@@ -1,31 +1,37 @@
 package com.inatlas.infra.controller;
 
-import com.inatlas.infra.api.ApiCoffeeShopController;
-import com.inatlas.infra.api.ApiCoffeeShopDelegate;
-import com.inatlas.infra.dto.OrderDTO;
-import com.inatlas.infra.service.OrderService;
+
+import com.inatlas.domain.db.mapper.OrderDTOMapper;
+import com.inatlas.domain.usecase.OperationsOnOrderUseCase;
+import com.inatlas.infra.api.dto.OrderDTO;
+import com.inatlas.infra.api.order.OrderControllerApi;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.stereotype.Controller;
 
 
-public class OrderController extends ApiCoffeeShopController {
+@Controller
+public class OrderController implements OrderControllerApi {
 
-  private OrderService delegate;
 
-  public OrderController(ApiCoffeeShopDelegate delegate) {
-    super(delegate);
+  private final OrderDTOMapper orderDTOMapper;
+  private final OperationsOnOrderUseCase operationsOnOrderUseCase;
+
+  public OrderController(OrderDTOMapper orderDTOMapper, OperationsOnOrderUseCase operationsOnOrderUseCase) {
+
+    this.orderDTOMapper = orderDTOMapper;
+    this.operationsOnOrderUseCase = operationsOnOrderUseCase;
+  }
+
+  @Override
+  public ResponseEntity<OrderDTO> addProductToOrder(Integer productId, Integer amount) {
+    return ResponseEntity.ok(orderDTOMapper.toDTO(operationsOnOrderUseCase.addProductToOrder(productId, amount).get()));
   }
 
   @Override
   public ResponseEntity<OrderDTO> createNewOrder() {
-    return super.createNewOrder();
+    return  ResponseEntity.ok( orderDTOMapper.toDTO(operationsOnOrderUseCase.createNewOrder())) ;
   }
 
-
-  @Override
-  public ResponseEntity<OrderDTO> addProductToOrder(Integer id, Integer amount) {
-    return super.addProductToOrder(id, amount);
-  }
-
+//
 
 }
