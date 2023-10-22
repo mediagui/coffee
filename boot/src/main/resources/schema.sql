@@ -4,8 +4,9 @@ CREATE TABLE productDB
     name  VARCHAR(255)   NOT NULL,
     price DECIMAL(10, 2) NOT NULL,
     type  VARCHAR(50),
-    is_promotion BOOLEAN NOT NULL DEFAULT FALSE
+    promotion BOOLEAN NOT NULL DEFAULT FALSE
 );
+
 
 CREATE TABLE orderDB
 (
