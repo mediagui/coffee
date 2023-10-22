@@ -32,15 +32,13 @@ public class OperationsOnOrderUseCaseImpl implements OperationsOnOrderUseCase {
   }
 
   @Override
-  public void addProductToOrder(Integer orderId, Integer productId, Integer amount) {
-    orderRepository.addProductToOrder(orderId, productId, amount);
+  public Optional<Order> addProductToOrder(Integer productId, Integer amount) {
+     return orderRepository.addProductToCurrentOrder(productId, amount);
   }
+
 
   @Override
-  public void updateItemOrderFromOrder(Integer orderId, Integer productId, Integer amount) {
-    orderRepository.updateItemOrderFromOrder(orderId, productId, amount);
-
+  public Optional<Order> getActualOrder() {
+    return orderRepository.getActualOrder();
   }
-
-
 }

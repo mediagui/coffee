@@ -2,7 +2,7 @@ package com.inatlas.domain.db.mapper;
 
 import com.inatlas.domain.db.entity.OrderItemDB;
 import com.inatlas.domain.entity.OrderItem;
-import com.inatlas.infra.dto.OrderItemDTO;
+import com.inatlas.infra.api.dto.OrderItemDTO;
 import org.mapstruct.InjectionStrategy;
 import org.mapstruct.Mapper;
 

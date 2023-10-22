@@ -7,8 +7,7 @@ import java.util.Optional;
 public interface OperationsOnOrderUseCase {
   Order createNewOrder();
   Optional<Order> getOrderByID(Integer id);
+  Optional<Order> getActualOrder();
   void setCompleted(Integer id);
-  void addProductToOrder(Integer orderId, Integer productId, Integer amount);
-
-  void updateItemOrderFromOrder(Integer orderId, Integer productId, Integer amount);
+  Optional<Order> addProductToOrder(Integer productId, Integer amount);
 }
