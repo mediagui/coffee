@@ -30,11 +30,13 @@
         <springfox-openapi-ui.version>1.7.0</springfox-openapi-ui.version>
         <jackson-databind-nullable.version>0.2.6</jackson-databind-nullable.version>
         <swagger-annotations.version>2.2.16</swagger-annotations.version>
+        <spring-boot.version>2.7.6</spring-boot.version>
         <!-- Plugins version -->
         <maven-compiler-plugin.version>3.11.0</maven-compiler-plugin.version>
         <mapstruct-processor.version>1.4.2.Final</mapstruct-processor.version>
         <maven-assembly-plugin.version>2.5.3</maven-assembly-plugin.version>
         <jacoco-maven-plugin.version>0.8.10</jacoco-maven-plugin.version>
+        <openapi-generator-maven-plugin.version>7.0.1</openapi-generator-maven-plugin.version>
 
         <!-- Other configurations -->
 
@@ -114,6 +116,14 @@
                 <version>${swagger-annotations.version}</version>
             </dependency>
 
+            <!-- Spring Boot -->
+            <dependency>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-devtools</artifactId>
+                <version>${spring-boot.version}</version>
+                <scope>runtime</scope>
+                <optional>true</optional>
+            </dependency>
         </dependencies>
     </dependencyManagement>
 
@@ -162,6 +172,7 @@
                         <exclude>**/domain/enums/*</exclude>
                         <exclude>**/domain/usecase/command/*</exclude>
                         <exclude>**/domain/usecase/command/Print*UseCaseImpl.*</exclude>
+                        <exclude>**/infra/api/**/*ControllerApi.*</exclude>
                     </excludes>
                 </configuration>
                 <executions>
