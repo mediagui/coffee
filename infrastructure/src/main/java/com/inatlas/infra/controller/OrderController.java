@@ -3,6 +3,7 @@ package com.inatlas.infra.controller;
 
 import com.inatlas.domain.db.mapper.OrderDTOMapper;
 import com.inatlas.domain.usecase.OperationsOnOrderUseCase;
+import com.inatlas.domain.usecase.PayOrderUseCase;
 import com.inatlas.infra.api.dto.OrderDTO;
 import com.inatlas.infra.api.order.OrderControllerApi;
 import org.springframework.http.ResponseEntity;
@@ -15,11 +16,13 @@ public class OrderController implements OrderControllerApi {
 
   private final OrderDTOMapper orderDTOMapper;
   private final OperationsOnOrderUseCase operationsOnOrderUseCase;
+  private final PayOrderUseCase payOrderUseCase;
 
-  public OrderController(OrderDTOMapper orderDTOMapper, OperationsOnOrderUseCase operationsOnOrderUseCase) {
+  public OrderController(OrderDTOMapper orderDTOMapper, OperationsOnOrderUseCase operationsOnOrderUseCase, PayOrderUseCase payOrderUseCase) {
 
     this.orderDTOMapper = orderDTOMapper;
     this.operationsOnOrderUseCase = operationsOnOrderUseCase;
+    this.payOrderUseCase = payOrderUseCase;
   }
 
   @Override
@@ -28,10 +31,9 @@ public class OrderController implements OrderControllerApi {
   }
 
   @Override
-  public ResponseEntity<OrderDTO> createNewOrder() {
-    return  ResponseEntity.ok( orderDTOMapper.toDTO(operationsOnOrderUseCase.createNewOrder())) ;
+  public ResponseEntity<OrderDTO> payOrder() {
+    return ResponseEntity.ok(payOrderUseCase.payOrder().map(orderDTOMapper::toDTO).get());
   }
 
-//
 
 }

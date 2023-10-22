@@ -9,6 +9,7 @@ public interface OrderRepository {
   Optional<Order> getOrderByID(Integer id);
   void setCompleted(Integer id);
   Optional<Order> addProductToCurrentOrder(Integer itemId, Integer amount);
-  void updateItemsInActualOrder(Integer itemId, Integer amount);
   Optional<Order> getActualOrder();
+  Optional<Order> payOrder();
+
 }

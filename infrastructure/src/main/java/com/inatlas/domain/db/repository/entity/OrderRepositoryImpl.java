@@ -13,7 +13,6 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
 import java.util.Optional;
 
 @Repository
@@ -21,17 +20,13 @@ import java.util.Optional;
 public class OrderRepositoryImpl implements OrderRepository {
 
   private final OrderJpaRepository orderJpaRepository;
-  private final ItemOrderJpaRepository itemOrderJpaRepository;
   private final ProductJpaRepository productJpaRepository;
-  private final ProductJpaRepository productRepository;
   private final OrderMapper orderMapper;
 
 
   public OrderRepositoryImpl(OrderJpaRepository orderJpaRepository, ItemOrderJpaRepository itemOrderJpaRepository, ProductJpaRepository productJpaRepository, ProductJpaRepository productRepository, OrderMapper orderMapper) {
     this.orderJpaRepository = orderJpaRepository;
-    this.itemOrderJpaRepository = itemOrderJpaRepository;
     this.productJpaRepository = productJpaRepository;
-    this.productRepository = productRepository;
     this.orderMapper = orderMapper;
   }
 
@@ -100,17 +95,6 @@ public class OrderRepositoryImpl implements OrderRepository {
     return i;
   }
 
-  // Update the order item with the given product ID, amount and order
-//  private void updateOrderItemDB(Integer productId, Integer amount, OrderItemDB orderItemDB, OrderDB orderDB) {
-//    orderItemDB.setAmount(orderItemDB.getAmount() + amount);
-//    if (orderItemDB.getProduct() == null) {
-//      orderItemDB.setProduct(productJpaRepository.findById(productId).orElseThrow());
-//      orderItemDB.setUnitPrice(orderItemDB.getProduct().getPrice());
-//    }
-//    orderItemDB.setTotal(orderItemDB.getUnitPrice() * orderItemDB.getAmount());
-//
-//  }
-
   private void includeOrUpdateItemInOrderDB(OrderDB orderDB, OrderItemDB orderItemDB, int amount) {
 
     Optional<List<OrderItemDB>> itemList = Optional.ofNullable(orderDB.getItems());
@@ -120,13 +104,12 @@ public class OrderRepositoryImpl implements OrderRepository {
                       .filter(itemDB -> itemDB.getId().equals(orderItemDB.getId()))
                       .findFirst()
                       .ifPresentOrElse(item -> {
-                        item.setAmount(orderItemDB.getAmount()+amount);
-                        item.setTotal(orderItemDB.getAmount() * orderItemDB.getUnitPrice());
-                        item.setProduct(orderItemDB.getProduct());
-                      },
-                      () -> {
-                        orderDB.getItems().add(getNewOrderItemDB(orderItemDB.getProduct().getId(), amount));
-                      });
+                                item.setAmount(orderItemDB.getAmount() + amount);
+                                item.setTotal(orderItemDB.getAmount() * orderItemDB.getUnitPrice());
+                                item.setProduct(orderItemDB.getProduct());
+                              },
+                              () -> orderDB.getItems().add(getNewOrderItemDB(orderItemDB.getProduct().getId(), amount))
+                              );
             },
             () -> {
               orderDB.setItems(new ArrayList<>());
@@ -137,30 +120,19 @@ public class OrderRepositoryImpl implements OrderRepository {
     orderItemDB.setOrderDB(orderDB);
   }
 
-  @Override
-  public void updateItemsInActualOrder(Integer productId, Integer amount) {
-
-    throw new UnsupportedOperationException("Not implemented yet");
-
-//    Optional<OrderDB> actualOrder = orderJpaRepository.findOrderDBByCompleteFalse();
-//
-//
-//    actualOrder.ifPresent(orderDB -> {
-//      List<OrderItemDB> items = orderDB.getItems();
-//      items.stream()
-//              .filter(itemDB -> itemDB.getProduct().getId() == productId)
-//              .findFirst()
-//              .ifPresent(orderItemDB -> {
-//                orderItemDB.setAmount(orderItemDB.getAmount() + amount);
-//                itemOrderJpaRepository.save(orderItemDB);
-//              });
-//    });
-
-
-  }
 
   @Override
   public Optional<Order> getActualOrder() {
     return orderJpaRepository.findOrderDBByCompleteFalse().map(orderMapper::toDomain);
+  }
+
+  @Override
+  public Optional<Order> payOrder() {
+    Optional<OrderDB> orderDB = orderJpaRepository.findOrderDBByCompleteFalse();
+    orderDB.ifPresent(order -> {
+      order.setComplete(true);
+      orderJpaRepository.save(order);
+    });
+    return orderDB.map(orderMapper::toDomain);
   }
 }
