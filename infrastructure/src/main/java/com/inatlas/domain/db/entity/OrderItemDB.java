@@ -1,7 +1,5 @@
 package com.inatlas.domain.db.entity;
 
-import lombok.*;
-
 import javax.persistence.*;
 import java.util.Objects;
 
@@ -10,15 +8,15 @@ import java.util.Objects;
 public class OrderItemDB {
 
   @Id
+  @GeneratedValue(strategy = GenerationType.IDENTITY)
   private Integer id;
   private int amount;
   @OneToOne
-  @JoinColumn(name = "product_id")
+  @JoinColumn(name = "productId")
   private ProductDB product;
   private double unitPrice;
   private double total;
-  @ManyToOne
-  @JoinColumn(name = "order_id")
+  @Transient
   private OrderDB orderDB;
 
   public OrderItemDB() {
@@ -85,11 +83,11 @@ public class OrderItemDB {
     if (this == o) return true;
     if (!(o instanceof OrderItemDB)) return false;
     OrderItemDB that = (OrderItemDB) o;
-    return getAmount() == that.getAmount() && Double.compare(getUnitPrice(), that.getUnitPrice()) == 0 && Double.compare(getTotal(), that.getTotal()) == 0 && Objects.equals(getId(), that.getId()) && Objects.equals(getProduct(), that.getProduct()) && Objects.equals(getOrderDB(), that.getOrderDB());
+    return getAmount() == that.getAmount() && Double.compare(getUnitPrice(), that.getUnitPrice()) == 0 && Double.compare(getTotal(), that.getTotal()) == 0 && Objects.equals(getId(), that.getId()) && Objects.equals(getProduct(), that.getProduct());
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(getId(), getAmount(), getProduct(), getUnitPrice(), getTotal(), getOrderDB());
+    return Objects.hash(getId(), getAmount(), getProduct(), getUnitPrice(), getTotal());
   }
 }

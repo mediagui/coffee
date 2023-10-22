@@ -1,19 +1,29 @@
 package com.inatlas.domain.db.entity;
 
-import javax.persistence.Entity;
-import javax.persistence.Id;
+import javax.persistence.*;
 
 
 @Entity
 public class ProductDB {
 
   @Id
+  @GeneratedValue(strategy = GenerationType.IDENTITY)
   private int id;
   private String name;
   private double price;
   private String type;
   private boolean promotion;
 
+  @OneToOne(mappedBy = "product")
+  private OrderItemDB orderItemDB;
+
+  public OrderItemDB getOrderItemDB() {
+    return orderItemDB;
+  }
+
+  public void setOrderItemDB(OrderItemDB orderItemDB) {
+    this.orderItemDB = orderItemDB;
+  }
 
   public ProductDB() {
   }

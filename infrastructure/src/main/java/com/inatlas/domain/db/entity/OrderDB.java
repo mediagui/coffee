@@ -1,9 +1,7 @@
 package com.inatlas.domain.db.entity;
 
 
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.OneToMany;
+import javax.persistence.*;
 import java.time.LocalDateTime;
 import java.util.List;
 
@@ -11,11 +9,13 @@ import java.util.List;
 public class OrderDB {
 
   @Id
+  @GeneratedValue(strategy = GenerationType.IDENTITY)
   private Integer id;
   private double total;
   private LocalDateTime orderDate;
   private boolean complete;
-  @OneToMany(mappedBy = "orderDB")
+  @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
+  @JoinColumn(name = "orderId")
   private List<OrderItemDB> items;
   public OrderDB(){}
 

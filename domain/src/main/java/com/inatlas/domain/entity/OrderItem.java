@@ -1,11 +1,12 @@
 package com.inatlas.domain.entity;
 
-import lombok.EqualsAndHashCode;
 
+
+import java.util.Objects;
 import java.util.StringJoiner;
 
 
-@EqualsAndHashCode
+
 public class OrderItem{
   private int amount;
   private Product product;
@@ -104,5 +105,16 @@ public class OrderItem{
             .toString();
   }
 
+  @Override
+  public boolean equals(Object o) {
+    if (this == o) return true;
+    if (!(o instanceof OrderItem)) return false;
+    OrderItem orderItem = (OrderItem) o;
+    return getAmount() == orderItem.getAmount() && Double.compare(getUnitPrice(), orderItem.getUnitPrice()) == 0 && isNew() == orderItem.isNew() && isPromotion() == orderItem.isPromotion() && isPrice() == orderItem.isPrice() && Objects.equals(getProduct(), orderItem.getProduct());
+  }
 
+  @Override
+  public int hashCode() {
+    return Objects.hash(getAmount(), getProduct(), getUnitPrice(), isNew(), isPromotion(), isPrice());
+  }
 }
