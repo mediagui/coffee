@@ -1,0 +1,88 @@
+openapi: 3.0.3
+info:
+  title: Coffee Shop Products
+  description: Coffee Shop Products API
+  version: 1.0.0
+
+servers:
+  - url: http://localhost:8080
+    description: Local server
+paths:
+  "/api/v1/coffeeShop/products":
+    get:
+      summary: Get all products
+      operationId: getAllProducts
+      tags:
+        - products-controller
+      responses:
+        200:
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResponseDTO'
+        404:
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorDTO'
+        500:
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorDTO'
+        501:
+          description: Not Implemented
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorDTO'
+  "/api/v1/coffeeShop/product/{id}":
+    get:
+      summary: Get product by id
+      operationId: getProductById
+      tags:
+        - products-controller
+      parameters:
+        - name: id
+          in: path
+          description: Product id
+          required: true
+          schema:
+            type: integer
+            format: int32
+      responses:
+        200:
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResponseDTO'
+        404:
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorDTO'
+        500:
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorDTO'
+        501:
+          description: Not Implemented
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorDTO'
+components:
+  schemas:
+    ResponseDTO:
+      $ref: './components.v1.yaml#/components/schemas/ResponseDTO'
+    ProductDTO:
+        $ref: './components.v1.yaml#/components/schemas/ProductDTO'
+    ErrorDTO:
+        $ref: './components.v1.yaml#/components/schemas/ErrorDTO'

@@ -1,0 +1,56 @@
+openapi: 3.0.3
+info:
+  title: Coffee Shop Receipt
+  description: Coffee Shop Receipt API
+  version: 1.0.0
+servers:
+  - url: http://localhost:8080
+    description: Local server
+
+paths:
+  /api/v1/coffeeShop/receipt:
+    get:
+      summary: Get receipt
+      operationId: getReceipt
+      tags:
+        - receipt-controller
+      parameters:
+        - name: format
+          in: query
+          required: true
+          schema:
+            type: string
+            enum: [pdf, json]
+            default: json
+      responses:
+        200:
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/OrderDTO'
+        404:
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorDTO'
+        500:
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorDTO'
+        501:
+          description: Not Implemented
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorDTO'
+components:
+  schemas:
+    ErrorDTO:
+      $ref: './components.v1.yaml#/components/schemas/ErrorDTO'
+    OrderDTO:
+      $ref: './components.v1.yaml#/components/schemas/OrderDTO'
+
