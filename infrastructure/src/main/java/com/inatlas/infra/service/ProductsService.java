@@ -4,8 +4,7 @@ import com.inatlas.domain.db.mapper.ProductDTOMapper;
 import com.inatlas.domain.entity.Product;
 import com.inatlas.domain.usecase.GetAllProductsUseCase;
 import com.inatlas.domain.usecase.GetOneProductUseCase;
-import com.inatlas.infra.api.ApiCoffeeShopDelegate;
-import com.inatlas.infra.dto.ResponseDTO;
+import com.inatlas.infra.api.dto.ResponseDTO;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
@@ -17,7 +16,7 @@ import java.util.Optional;
 import static java.util.Collections.EMPTY_LIST;
 
 @Service
-public class ProductsService implements ApiCoffeeShopDelegate {
+public class ProductsService  {
 
   private final GetOneProductUseCase getOneProductUseCase;
   private final GetAllProductsUseCase getAllProductsUseCase;
@@ -33,7 +32,7 @@ public class ProductsService implements ApiCoffeeShopDelegate {
 
   
 
-  @Override
+
   public ResponseEntity<ResponseDTO> getAllProducts() {
 
 
@@ -48,7 +47,6 @@ public class ProductsService implements ApiCoffeeShopDelegate {
 
   }
 
-  @Override
   public ResponseEntity<ResponseDTO> getProductById(Integer id) {
 
     Optional<Product> product = getOneProductUseCase.getTheProduct(id);

@@ -8,7 +8,7 @@
 package com.inatlas.domain.db.mapper;
 
 import com.inatlas.domain.entity.Product;
-import com.inatlas.infra.dto.ProductDTO;
+import com.inatlas.infra.api.dto.ProductDTO;
 import org.mapstruct.Mapper;
 
 @Mapper(componentModel = "spring")

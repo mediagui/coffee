@@ -1,8 +1,8 @@
 package com.inatlas.infra.controller;
 
-import com.inatlas.infra.dto.ErrorDTO;
-import com.inatlas.infra.dto.ProductDTO;
-import com.inatlas.infra.dto.ResponseDTO;
+import com.inatlas.infra.api.dto.ErrorDTO;
+import com.inatlas.infra.api.dto.ProductDTO;
+import com.inatlas.infra.api.dto.ResponseDTO;
 import com.inatlas.infra.service.ProductUtil;
 import com.inatlas.infra.service.ProductsService;
 import org.junit.jupiter.api.DisplayName;
