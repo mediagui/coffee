@@ -1,10 +1,12 @@
 package com.inatlas.infra.service;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 import com.inatlas.domain.entity.Order;
 import com.inatlas.domain.usecase.FindLastOrderCompletedUseCase;
+import lombok.SneakyThrows;
 import org.apache.pdfbox.pdmodel.PDDocument;
 import org.apache.pdfbox.pdmodel.PDPage;
 import org.apache.pdfbox.pdmodel.PDPageContentStream;
@@ -45,14 +47,14 @@ public class ReceiptService {
    * @return A ResponseEntity containing the receipt as a Resource.
    * @throws IOException If an I/O error occurs while generating the receipt.
    */
-  public ResponseEntity<Resource> getReceipt(String format)  {
+  public ResponseEntity<Resource> getReceipt(String format) throws IOException {
     final Optional<Order> lastOrderCompleted = findLastOrderCompletedUseCase.getLastOrderCompleted();
 
     if (lastOrderCompleted.isEmpty()) {
       return ResponseEntity.notFound().build();
     }
 
-    try {
+
       // Generate the PDF file
       byte[] bytes = generatePDFReceipt(lastOrderCompleted);
 
@@ -63,19 +65,19 @@ public class ReceiptService {
       if ("pdf".equals(format)) {
         return ResponseEntity.ok().contentType(MediaType.APPLICATION_PDF).body(resource);
       } else {
-        return ResponseEntity.badRequest().build();
+        throw new UnsupportedOperationException("Not supported format");
       }
-    } catch (IOException e) {
-      return ResponseEntity.badRequest().build();
+
+
     }
-  }
+
 
   /*
    * Generates a PDF receipt for the provided order.
    * @param lastOrderCompleted The order for which to generate the receipt.
    * @return The generated PDF receipt.
    */
-  private byte[] generatePDFReceipt(Optional<Order> lastOrderCompleted) throws IOException {
+    private byte[] generatePDFReceipt(Optional<Order> lastOrderCompleted) {
     Order order;
 
     if (lastOrderCompleted.isPresent()) {
@@ -83,9 +85,15 @@ public class ReceiptService {
       ObjectMapper mapper = new ObjectMapper();
       mapper.registerModule(new JavaTimeModule());
       mapper.enable(SerializationFeature.INDENT_OUTPUT);
-      String json = mapper.writeValueAsString(order);
-      String[] lines = json.split(System.lineSeparator());
-      return writePDF(lines);
+      String json = null;
+      try {
+        json = mapper.writeValueAsString(order);
+        String[] lines = json.split(System.lineSeparator());
+        return writePDF(lines);
+
+      } catch (IOException e) {
+        throw new RuntimeException(e);
+      }
     }
 
     return null;

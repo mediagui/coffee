@@ -28,5 +28,11 @@ server:
   error:
     whitelabel:
       enabled: false
-    path: /api/v1/coffeeShop/error
+    path: /error
+
+    include-message: always
+    include-binding-errors: always
+    include-stacktrace: on_param
+    include-exception: false
+
 #debug: true

@@ -180,17 +180,6 @@
                             <inputSpec> ${project.basedir}/src/main/resources/coffeeShop.receipt.v1.yaml</inputSpec>
                         </configuration>
                     </execution>
-                    <execution>
-                        <id>Error_API</id>
-                        <goals>
-                            <goal>generate</goal>
-                        </goals>
-                        <phase>generate-sources</phase>
-                        <configuration>
-                            <apiPackage>com.inatlas.infra.api.error</apiPackage>
-                            <inputSpec> ${project.basedir}/src/main/resources/coffeeShop.error.v1.yaml</inputSpec>
-                        </configuration>
-                    </execution>
                 </executions>
             </plugin>
         </plugins>

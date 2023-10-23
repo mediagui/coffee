@@ -53,9 +53,9 @@ public class ProductRepositoryImpl implements ProductRepository {
    */
   @Override
   public Optional<Product> findById(int choice) {
-    return Optional.ofNullable(productJpaRepository.findById(choice)
+    return Optional.of(productJpaRepository.findById(choice)
             .map(productMapper::toDomain)
-            .orElseThrow(() -> new RuntimeException("Product not found")));
+            .orElseThrow());
   }
   
   /**
