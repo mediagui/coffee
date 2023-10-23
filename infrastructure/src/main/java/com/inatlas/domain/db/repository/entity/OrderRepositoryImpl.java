@@ -25,7 +25,7 @@ public class OrderRepositoryImpl implements OrderRepository {
   private final OrderMapper orderMapper;
 
 
-  public OrderRepositoryImpl(OrderJpaRepository orderJpaRepository, ItemOrderJpaRepository itemOrderJpaRepository, ProductJpaRepository productJpaRepository, ProductJpaRepository productRepository, OrderMapper orderMapper) {
+  public OrderRepositoryImpl(OrderJpaRepository orderJpaRepository, ProductJpaRepository productJpaRepository, OrderMapper orderMapper) {
     this.orderJpaRepository = orderJpaRepository;
     this.productJpaRepository = productJpaRepository;
     this.orderMapper = orderMapper;
@@ -100,7 +100,7 @@ public class OrderRepositoryImpl implements OrderRepository {
 
     Optional<List<OrderItemDB>> itemList = Optional.ofNullable(orderDB.getItems());
 
-    itemList.ifPresentOrElse(items -> {
+    itemList.ifPresentOrElse(items ->
               items.stream()
                       .filter(itemDB -> itemDB.getId().equals(orderItemDB.getId()))
                       .findFirst()
@@ -110,8 +110,8 @@ public class OrderRepositoryImpl implements OrderRepository {
                                 item.setProduct(orderItemDB.getProduct());
                               },
                               () -> orderDB.getItems().add(getNewOrderItemDB(orderItemDB.getProduct().getId(), amount))
-                              );
-            },
+                              )
+            ,
             () -> {
               orderDB.setItems(new ArrayList<>());
               orderDB.getItems().add(orderItemDB);
