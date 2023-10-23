@@ -10,6 +10,7 @@ public class Order {
   private LocalDateTime orderDate;
   private boolean complete;
   private List<OrderItem> items;
+  private double total;
 
 
   public Order(List<OrderItem> items) {
