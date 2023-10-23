@@ -1,21 +1,26 @@
 package com.inatlas.infra.controller;
 
-import com.inatlas.infra.api.ApiCoffeeShopController;
-import com.inatlas.infra.api.ApiCoffeeShopDelegate;
-import com.inatlas.infra.dto.OrderDTO;
+import com.inatlas.infra.api.receipt.ReceiptControllerApi;
 import com.inatlas.infra.service.ReceiptService;
+import org.springframework.core.io.Resource;
 import org.springframework.http.ResponseEntity;
+import org.springframework.stereotype.Controller;
 
-public class ReceiptController extends ApiCoffeeShopController {
+import java.io.IOException;
 
-  private ReceiptService delegate;
 
-  public ReceiptController(ApiCoffeeShopDelegate delegate) {
-    super(delegate);
+@Controller
+public class ReceiptController implements ReceiptControllerApi {
+
+  private final ReceiptService receiptService;
+  public ReceiptController(ReceiptService receiptService) {
+    this.receiptService = receiptService;
   }
 
   @Override
-  public ResponseEntity<OrderDTO> getReceipt(String format) {
-    return super.getReceipt(format);
+  public ResponseEntity<Resource> getReceipt(String format) throws IOException {
+    return receiptService.getReceipt(format);
   }
+
+
 }
