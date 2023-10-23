@@ -45,23 +45,27 @@ public class ReceiptService {
    * @return A ResponseEntity containing the receipt as a Resource.
    * @throws IOException If an I/O error occurs while generating the receipt.
    */
-  public ResponseEntity<Resource> getReceipt(String format) throws IOException {
+  public ResponseEntity<Resource> getReceipt(String format)  {
     final Optional<Order> lastOrderCompleted = findLastOrderCompletedUseCase.getLastOrderCompleted();
 
     if (lastOrderCompleted.isEmpty()) {
       return ResponseEntity.notFound().build();
     }
 
-    // Generate the PDF file
-    byte[] bytes = generatePDFReceipt(lastOrderCompleted);
+    try {
+      // Generate the PDF file
+      byte[] bytes = generatePDFReceipt(lastOrderCompleted);
 
-    // Create a resource with the content of the PDF file
-    Resource resource = new ByteArrayResource(bytes);
+      // Create a resource with the content of the PDF file
+      Resource resource = new ByteArrayResource(bytes);
 
-    // Return the resource with the corresponding content type
-    if ("pdf".equals(format)) {
-      return ResponseEntity.ok().contentType(MediaType.APPLICATION_PDF).body(resource);
-    } else {
+      // Return the resource with the corresponding content type
+      if ("pdf".equals(format)) {
+        return ResponseEntity.ok().contentType(MediaType.APPLICATION_PDF).body(resource);
+      } else {
+        return ResponseEntity.badRequest().build();
+      }
+    } catch (IOException e) {
       return ResponseEntity.badRequest().build();
     }
   }
