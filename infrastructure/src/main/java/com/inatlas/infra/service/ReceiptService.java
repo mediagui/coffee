@@ -1,12 +1,10 @@
 package com.inatlas.infra.service;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 import com.inatlas.domain.entity.Order;
 import com.inatlas.domain.usecase.FindLastOrderCompletedUseCase;
-import lombok.SneakyThrows;
 import org.apache.pdfbox.pdmodel.PDDocument;
 import org.apache.pdfbox.pdmodel.PDPage;
 import org.apache.pdfbox.pdmodel.PDPageContentStream;
@@ -21,6 +19,7 @@ import org.springframework.stereotype.Service;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
+import java.util.Arrays;
 import java.util.Optional;
 
 /**
@@ -29,7 +28,7 @@ import java.util.Optional;
 @Service
 public class ReceiptService {
 
-  private FindLastOrderCompletedUseCase findLastOrderCompletedUseCase;
+  private final FindLastOrderCompletedUseCase findLastOrderCompletedUseCase;
 
   /**
    * Constructs an instance of ReceiptService with the provided dependencies.
@@ -47,8 +46,10 @@ public class ReceiptService {
    * @return A ResponseEntity containing the receipt as a Resource.
    * @throws IOException If an I/O error occurs while generating the receipt.
    */
-  public ResponseEntity<Resource> getReceipt(String format) throws IOException {
-    final Optional<Order> lastOrderCompleted = findLastOrderCompletedUseCase.getLastOrderCompleted();
+  public ResponseEntity<Resource> getReceipt(String format, Optional<Order>... orderCompleted) throws IOException {
+    // Se ha incluido un parámetro opcional para poder pasar un orderCompleted en los test (no debería hacerse así, pero quiero ahorrar tiempo) :-)
+
+    final Optional<Order> lastOrderCompleted = orderCompleted.length > 0 ? orderCompleted[0] : findLastOrderCompletedUseCase.getLastOrderCompleted();
 
     if (lastOrderCompleted.isEmpty()) {
       return ResponseEntity.notFound().build();
@@ -77,7 +78,7 @@ public class ReceiptService {
    * @param lastOrderCompleted The order for which to generate the receipt.
    * @return The generated PDF receipt.
    */
-    private byte[] generatePDFReceipt(Optional<Order> lastOrderCompleted) {
+  byte[] generatePDFReceipt(Optional<Order> lastOrderCompleted) {
     Order order;
 
     if (lastOrderCompleted.isPresent()) {
@@ -96,7 +97,7 @@ public class ReceiptService {
       }
     }
 
-    return null;
+    return new byte[0];
   }
 
   /*
@@ -104,24 +105,29 @@ public class ReceiptService {
    * @param lines The lines to include in the receipt.
    * @return The generated PDF receipt.
    */
-  private byte[] writePDF(String[] lines) throws IOException {
-    PDDocument document = new PDDocument();
-    PDPage page = new PDPage();
-    document.addPage(page);
-    PDPageContentStream contentStream = new PDPageContentStream(document, page);
-    contentStream.setFont(new PDType1Font(Standard14Fonts.FontName.COURIER), 12);
-    contentStream.beginText();
-    contentStream.setLeading(14.5f);
-    contentStream.newLineAtOffset(25, 725);
+  byte[] writePDF(String[] lines) throws IOException {
 
-    for (String line : lines) {
-      contentStream.showText(line);
-      contentStream.newLine();
+    if(lines.length == 0)
+      throw new IOException("No lines to write");
+
+    try (PDDocument document = new PDDocument()) {
+      PDPage page = new PDPage();
+      document.addPage(page);
+      PDPageContentStream contentStream = new PDPageContentStream(document, page);
+      contentStream.setFont(new PDType1Font(Standard14Fonts.FontName.COURIER), 12);
+      contentStream.beginText();
+      contentStream.setLeading(14.5f);
+      contentStream.newLineAtOffset(25, 725);
+
+      for (String line : lines) {
+        contentStream.showText(line);
+        contentStream.newLine();
+      }
+
+      contentStream.endText();
+      contentStream.close();
+      document.save(System.getProperty("java.io.tmpdir") + "/receipt.pdf");
     }
-
-    contentStream.endText();
-    contentStream.close();
-    document.save(System.getProperty("java.io.tmpdir") + "/receipt.pdf");
     return Files.readAllBytes(Paths.get(System.getProperty("java.io.tmpdir") + "receipt.pdf"));
   }
 }
