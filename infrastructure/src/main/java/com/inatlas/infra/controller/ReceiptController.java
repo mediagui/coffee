@@ -2,7 +2,6 @@ package com.inatlas.infra.controller;
 
 import com.inatlas.infra.api.receipt.ReceiptControllerApi;
 import com.inatlas.infra.service.ReceiptService;
-import lombok.SneakyThrows;
 import org.springframework.core.io.Resource;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;

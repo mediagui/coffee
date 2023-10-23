@@ -3,7 +3,6 @@ package com.inatlas.domain.db.repository.entity;
 import com.inatlas.domain.db.entity.OrderDB;
 import com.inatlas.domain.db.entity.OrderItemDB;
 import com.inatlas.domain.db.mapper.OrderMapper;
-import com.inatlas.domain.db.repository.jpa.ItemOrderJpaRepository;
 import com.inatlas.domain.db.repository.jpa.OrderJpaRepository;
 import com.inatlas.domain.db.repository.jpa.ProductJpaRepository;
 import com.inatlas.domain.entity.Order;
