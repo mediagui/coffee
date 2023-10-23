@@ -3,7 +3,6 @@ package com.inatlas.domain.usecase;
 import com.inatlas.domain.entity.OrderItem;
 import com.inatlas.domain.entity.Product;
 import com.inatlas.domain.repository.ProductRepository;
-import com.inatlas.util.LogUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 

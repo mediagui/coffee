@@ -5,6 +5,7 @@ import com.fasterxml.jackson.databind.SerializationFeature;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 import com.inatlas.domain.entity.Order;
 import com.inatlas.domain.usecase.FindLastOrderCompletedUseCase;
+import com.inatlas.infra.exception.ReceiptNotGeneratedException;
 import org.apache.pdfbox.pdmodel.PDDocument;
 import org.apache.pdfbox.pdmodel.PDPage;
 import org.apache.pdfbox.pdmodel.PDPageContentStream;
@@ -19,7 +20,6 @@ import org.springframework.stereotype.Service;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
-import java.util.Arrays;
 import java.util.Optional;
 
 /**
@@ -93,7 +93,7 @@ public class ReceiptService {
         return writePDF(lines);
 
       } catch (IOException e) {
-        throw new RuntimeException(e);
+        throw new ReceiptNotGeneratedException(e);
       }
     }
 

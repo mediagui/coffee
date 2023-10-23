@@ -7,7 +7,6 @@
  */
 package com.inatlas.domain.db.mapper;
 
-import com.inatlas.domain.db.entity.OrderDB;
 import com.inatlas.domain.entity.Order;
 import com.inatlas.infra.api.dto.OrderDTO;
 import org.mapstruct.InjectionStrategy;

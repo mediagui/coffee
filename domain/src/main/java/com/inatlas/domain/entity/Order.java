@@ -6,7 +6,7 @@ import java.util.StringJoiner;
 public class Order {
 
   private Integer id;
-  private double total;
+
   private LocalDateTime orderDate;
   private boolean complete;
   private List<OrderItem> items;

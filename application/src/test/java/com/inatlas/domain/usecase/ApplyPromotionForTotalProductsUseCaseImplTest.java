@@ -29,7 +29,7 @@ class ApplyPromotionForTotalProductsUseCaseImplTest {
   private ApplyPromotionForTotalProductsUseCaseImpl applyPromotionsForTotalProductsUseCase;
 
   @Test
-  public void contextLoads() {
+  void contextLoads() {
     assertNotNull(applyPromotionsForTotalProductsUseCase);
   }
 
@@ -42,7 +42,7 @@ class ApplyPromotionForTotalProductsUseCaseImplTest {
   //4. The order contains 0 products.
   @ParameterizedTest(name = "The order contains {1} order items with 2 products in each order.")
   @MethodSource("generateOrderItemsCases")
-  public void testApplyPromotionToOrder(List<OrderItem> orderItems, int numberOfOrderItems, double totalOrderValueWithDiscountExpected) {
+  void testApplyPromotionToOrder(List<OrderItem> orderItems, int numberOfOrderItems, double totalOrderValueWithDiscountExpected) {
 
     applyPromotionsForTotalProductsUseCase.applyPromotion(orderItems);
 

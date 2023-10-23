@@ -1,6 +1,7 @@
 package com.inatlas.infra.controller;
 
 import com.inatlas.infra.api.receipt.ReceiptControllerApi;
+import com.inatlas.infra.exception.ReceiptNotGeneratedException;
 import com.inatlas.infra.service.ReceiptService;
 import org.springframework.core.io.Resource;
 import org.springframework.http.ResponseEntity;
@@ -30,7 +31,7 @@ public class ReceiptController implements ReceiptControllerApi {
     try {
       return receiptService.getReceipt(format);
     } catch (IOException e) {
-      throw new RuntimeException(e);
+      throw new ReceiptNotGeneratedException(e);
     }
   }
 

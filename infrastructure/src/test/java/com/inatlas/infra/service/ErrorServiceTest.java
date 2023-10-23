@@ -22,7 +22,7 @@ class ErrorServiceTest {
 
   @Test
   @DisplayName("Test a BAD REQUEST response with a runtime exception")
-  public void testReturnErrorResponseWithRuntimeException() {
+  void testReturnErrorResponseWithRuntimeException() {
     HttpStatus status = HttpStatus.BAD_REQUEST;
     RuntimeException ex = new RuntimeException("Runtime exception occurred");
 
@@ -35,7 +35,7 @@ class ErrorServiceTest {
 
   @Test
   @DisplayName("Test a INTERNAL SERVER ERROR response with a IO exception")
-  public void testReturnErrorResponseWithIOException() {
+  void testReturnErrorResponseWithIOException() {
 
     HttpStatus status = HttpStatus.INTERNAL_SERVER_ERROR;
     IOException ex = new IOException("IO exception occurred");

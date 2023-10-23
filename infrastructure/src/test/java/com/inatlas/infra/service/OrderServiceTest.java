@@ -43,7 +43,7 @@ class OrderServiceTest {
 
   @Test
   @DisplayName("Test for adding a product to order")
-  public void testAddProductToOrder() {
+  void testAddProductToOrder() {
 
     Integer productId = 1;
     Integer amount = 1;
@@ -61,7 +61,7 @@ class OrderServiceTest {
 
   @Test
   @DisplayName("Test por paying an order")
-  public void testPayOrder() {
+  void testPayOrder() {
 
     OrderDTO orderDTO = generateOrderDTO();
 

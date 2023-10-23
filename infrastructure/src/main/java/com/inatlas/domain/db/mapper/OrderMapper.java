@@ -11,7 +11,6 @@ import com.inatlas.domain.db.entity.OrderDB;
 import com.inatlas.domain.entity.Order;
 import org.mapstruct.InjectionStrategy;
 import org.mapstruct.Mapper;
-import org.mapstruct.Mapping;
 
 @Mapper(componentModel = "spring",
     uses = {OrderItemMapper.class}, injectionStrategy =InjectionStrategy.CONSTRUCTOR)

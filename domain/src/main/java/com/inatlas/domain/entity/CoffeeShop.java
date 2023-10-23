@@ -1,9 +1,6 @@
 package com.inatlas.domain.entity;
 
 
-import java.util.List;
-
-
 public class CoffeeShop {
   private Menu menu;
   private Orders orders;

@@ -26,9 +26,9 @@ import static org.mockito.Mockito.when;
 class PromotionUtilTest {
 
 
-  public static final double DISCOUNT_5 = 0.05;
-  public static final double LATTE_PROMO_UNIT_PRICE = 3d;
-  public static final int NUMBER_OF_LATTES_TO_GET_A_FREE_ESPRESSO = 2;
+  static final double DISCOUNT_5 = 0.05;
+  static final double LATTE_PROMO_UNIT_PRICE = 3d;
+  static final int NUMBER_OF_LATTES_TO_GET_A_FREE_ESPRESSO = 2;
   private Order order8Products;
   private Order orderOver50;
   private Order orderLattes;
@@ -66,7 +66,7 @@ class PromotionUtilTest {
 
 
   @Test
-  public void testGetMostBeneficialPromotionWithPositiveCase() {
+  void testGetMostBeneficialPromotionWithPositiveCase() {
     // Positive test cases
 
     List<OrderItem> expectedAmountOver50Items = cloneOrderItemWithLattesReducedPriceTo3(orderOver50.getItems());
@@ -93,7 +93,7 @@ class PromotionUtilTest {
 
 
   @Test
-  public void testGetMostBeneficialPromotionWithNegativeCase() {
+  void testGetMostBeneficialPromotionWithNegativeCase() {
     // Positive test cases
 
     List<OrderItem> over50Items = cloneOrderItemWithLattesReducedPriceTo3(orderOver50.getItems());

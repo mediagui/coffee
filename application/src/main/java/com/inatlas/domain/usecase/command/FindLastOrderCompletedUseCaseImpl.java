@@ -3,7 +3,6 @@ package com.inatlas.domain.usecase.command;
 import com.inatlas.domain.entity.Order;
 import com.inatlas.domain.repository.OrderRepository;
 import com.inatlas.domain.usecase.FindLastOrderCompletedUseCase;
-import com.inatlas.domain.usecase.PayOrderUseCase;
 import org.springframework.stereotype.Component;
 
 import java.util.Optional;
@@ -19,5 +18,5 @@ public class FindLastOrderCompletedUseCaseImpl implements FindLastOrderCompleted
 
   @Override
   public Optional<Order> getLastOrderCompleted(){
-    return orderRepository.getLastOrderCompleted();};
+    return orderRepository.getLastOrderCompleted();}
 }

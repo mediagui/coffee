@@ -1,13 +1,13 @@
 package com.inatlas.domain.usecase;
 
 import com.inatlas.domain.entity.OrderItem;
-import com.inatlas.util.LogUtil;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
 
-import static com.inatlas.util.LogUtil.*;
+import static com.inatlas.util.LogUtil.debug;
+import static com.inatlas.util.LogUtil.info;
 
 /**
  * This class implements the ApplyPromotionForFoodAndDrinksOver50UseCase interface.
@@ -36,9 +36,7 @@ public class ApplyPromotionForFoodAndDrinksOver50UseCaseImpl implements ApplyPro
 
 
 
-  public ApplyPromotionForFoodAndDrinksOver50UseCaseImpl() {
 
-  }
 
   /**
  * This code applies a promotion to a list of order items.

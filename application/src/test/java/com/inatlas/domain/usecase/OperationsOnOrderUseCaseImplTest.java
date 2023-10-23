@@ -37,7 +37,7 @@ class OperationsOnOrderUseCaseImplTest {
 
   @Test
   @DisplayName("Test create new order")
-  public void testCreateNewOrder() {
+  void testCreateNewOrder() {
     Order expectedOrder = new Order(CoffeeTestUtil.generateOrderItemList());
     when(orderRepository.createNewOrder()).thenReturn(expectedOrder);
 
@@ -48,7 +48,7 @@ class OperationsOnOrderUseCaseImplTest {
 
   @Test
   @DisplayName("Test get order by ID with valid ID")
-  public void testGetOrderByIDWithValidID() {
+  void testGetOrderByIDWithValidID() {
     Integer id = 1;
     Order expectedOrder = new Order(CoffeeTestUtil.generateOrderItemList());
 
@@ -62,7 +62,7 @@ class OperationsOnOrderUseCaseImplTest {
 
   @Test
   @DisplayName("Test get order by ID with invalid ID")
-  public void testGetOrderByIDWithInvalidID() {
+  void testGetOrderByIDWithInvalidID() {
     Integer id = 2;
     when(orderRepository.getOrderByID(id)).thenReturn(Optional.empty());
 
@@ -73,7 +73,7 @@ class OperationsOnOrderUseCaseImplTest {
 
   @Test
   @DisplayName("Test set completed")
-  public void testSetCompleted() {
+  void testSetCompleted() {
     Integer id = 1;
 
     operationsOnOrderUseCaseImpl.setCompleted(id);
@@ -83,7 +83,7 @@ class OperationsOnOrderUseCaseImplTest {
 
   @Test
   @DisplayName("Test add product to order with valid product and amount")
-  public void testAddProductToOrderWithValidProductAndAmount() {
+  void testAddProductToOrderWithValidProductAndAmount() {
     Integer productId = 1;
     Integer amount = 2;
     Order expectedOrder = new Order(CoffeeTestUtil.generateOrderItemList());
@@ -98,7 +98,7 @@ class OperationsOnOrderUseCaseImplTest {
 
 //  @Test
 //  @DisplayName("Test add product to order with invalid product and amount")
-//  public void testAddProductToOrderWithInvalidProductAndAmount() {
+//  void testAddProductToOrderWithInvalidProductAndAmount() {
 //    Integer productId = 1;
 //    Integer amount = 2;
 //    when(orderRepository.addProductToCurrentOrder(productId, amount)).thenReturn(Optional.empty());
@@ -110,7 +110,7 @@ class OperationsOnOrderUseCaseImplTest {
 
   @Test
   @DisplayName("Test get actual order with existing order")
-  public void testGetActualOrderWithExistingOrder() {
+  void testGetActualOrderWithExistingOrder() {
     Order expectedOrder = new Order(CoffeeTestUtil.generateOrderItemList());
 
     when(orderRepository.getActualOrder()).thenReturn(Optional.of(expectedOrder));
@@ -123,7 +123,7 @@ class OperationsOnOrderUseCaseImplTest {
 
   @Test
   @DisplayName("Test get actual order with no existing order")
-  public void testGetActualOrderWithNoExistingOrder() {
+  void testGetActualOrderWithNoExistingOrder() {
     when(orderRepository.getActualOrder()).thenReturn(Optional.empty());
 
     Optional<Order> actualOrder = operationsOnOrderUseCaseImpl.getActualOrder();

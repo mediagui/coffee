@@ -5,10 +5,10 @@
  */
 package com.inatlas.domain.usecase.command;
 
-import org.springframework.boot.autoconfigure.condition.ConditionalOnNotWebApplication;
 import org.springframework.context.annotation.Lazy;
 import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Component;
+
 import java.util.Map;
 
 @Component
