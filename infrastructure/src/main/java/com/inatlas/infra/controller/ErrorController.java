@@ -15,7 +15,6 @@ public class ErrorController  {
 
   private final ErrorService errorService;
 
-
   @ExceptionHandler(NoSuchElementException.class)
   @ResponseStatus(HttpStatus.NOT_FOUND)
   public ResponseEntity<ErrorDTO> handleNoSuchElementException(NoSuchElementException ex) {
@@ -34,14 +33,9 @@ public class ErrorController  {
     return errorService.returnErrorResponse(HttpStatus.INTERNAL_SERVER_ERROR, ex);
   }
 
-
-
   public ErrorController(ErrorService errorService) {
     this.errorService = errorService;
   }
-
-
-
 
 }
 
