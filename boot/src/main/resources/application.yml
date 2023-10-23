@@ -28,5 +28,5 @@ server:
   error:
     whitelabel:
       enabled: false
-    path: /error
+    path: /api/v1/coffeeShop/error
 #debug: true
