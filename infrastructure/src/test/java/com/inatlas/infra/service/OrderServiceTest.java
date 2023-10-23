@@ -5,10 +5,7 @@ import com.inatlas.domain.entity.Order;
 import com.inatlas.domain.usecase.OperationsOnOrderUseCase;
 import com.inatlas.domain.usecase.PayOrderUseCase;
 import com.inatlas.infra.api.dto.OrderDTO;
-import org.junit.jupiter.api.AfterEach;
-import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.*;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
@@ -45,6 +42,7 @@ class OrderServiceTest {
 
 
   @Test
+  @DisplayName("Test for adding a product to order")
   public void testAddProductToOrder() {
 
     Integer productId = 1;
@@ -62,6 +60,7 @@ class OrderServiceTest {
   }
 
   @Test
+  @DisplayName("Test por paying an order")
   public void testPayOrder() {
 
     OrderDTO orderDTO = generateOrderDTO();
