@@ -13,8 +13,6 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 
-import static java.util.Collections.EMPTY_LIST;
-
 /**
  * Service class that handles operations related to products.
  */

@@ -61,7 +61,7 @@ class ProductsServiceTest {
   @Test
   @DisplayName("Returning a non empty list but an empty Product and expecting a 200 status code")
   void testGetAllProducts_WithNonEmptyListButEmptyProduct_ReturnsOk() {
-    List<Product> productList = ProductUtil.generateProductList();
+    List<Product> productList = CoffeeTestUtil.generateProductList();
 
     when(getAllProductsUseCase.getAllProducts()).thenReturn(Optional.of(productList));
 
@@ -94,17 +94,17 @@ class ProductsServiceTest {
   @Test
   void testGetProductById_WithExistingId_ReturnsOk() {
     int productId = 1;
-    Product product = ProductUtil.generateDrinkProduct();
+    Product product = CoffeeTestUtil.generateDrinkProduct();
 
     when(getOneProductUseCase.getTheProduct(productId)).thenReturn(Optional.of(product));
 
-    ProductDTO productDTO = new ProductDTO();
+    ProductDTO productDTO = CoffeeTestUtil.generateProductDTO(1);
     when(productDTOMapper.toDTO(product)).thenReturn(productDTO);
 
     ResponseEntity<ResponseDTO> response = productsService.getProductById(productId);
 
     assertEquals(HttpStatus.OK, response.getStatusCode());
-    assertEquals(productDTO, response.getBody().getProducts());
+    assertEquals(productDTO, response.getBody().getProducts().get(0));
   }
 
   @Test
@@ -115,7 +115,7 @@ class ProductsServiceTest {
     ResponseEntity<ResponseDTO> response = productsService.getProductById(productId);
 
     assertEquals(NOT_FOUND, response.getStatusCode());
-    assertEquals(null, response.getBody().getProducts());
+    assertEquals(null, response.getBody().getProducts().get(0));
   }
 
 }

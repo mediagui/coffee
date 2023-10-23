@@ -3,7 +3,7 @@ package com.inatlas.infra.controller;
 import com.inatlas.infra.api.dto.ErrorDTO;
 import com.inatlas.infra.api.dto.ProductDTO;
 import com.inatlas.infra.api.dto.ResponseDTO;
-import com.inatlas.infra.service.ProductUtil;
+import com.inatlas.infra.service.CoffeeTestUtil;
 import com.inatlas.infra.service.ProductsService;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -26,7 +26,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 @WebMvcTest(ProductsController.class)
 @ContextConfiguration(classes = {ProductsController.class, ProductsService.class})
-class ProductsControllerTest {
+class ProductsControllerIntegrationTest {
 
 
   @Autowired
@@ -102,7 +102,7 @@ class ProductsControllerTest {
     void testGetAllProducts_ProductsController() throws Exception {
 
 
-      List<ProductDTO> productList = ProductUtil.generateProductDTOList(2);
+      List<ProductDTO> productList = CoffeeTestUtil.generateProductDTOList(2);
       ResponseDTO responseDTO = new ResponseDTO();
       responseDTO.setProducts(productList);
 
@@ -122,7 +122,7 @@ class ProductsControllerTest {
     @Test
     void testGetProductById_ProductsController() throws Exception {
 
-      ProductDTO productDTO = ProductUtil.generateProductDTO(1);
+      ProductDTO productDTO = CoffeeTestUtil.generateProductDTO(1);
       ResponseDTO responseDTO = new ResponseDTO();
       responseDTO.addProductsItem(productDTO);
 
