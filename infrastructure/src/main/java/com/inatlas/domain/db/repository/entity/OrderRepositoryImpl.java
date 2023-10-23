@@ -11,6 +11,7 @@ import com.inatlas.domain.repository.OrderRepository;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -130,9 +131,26 @@ public class OrderRepositoryImpl implements OrderRepository {
   public Optional<Order> payOrder() {
     Optional<OrderDB> orderDB = orderJpaRepository.findOrderDBByCompleteFalse();
     orderDB.ifPresent(order -> {
-      order.setComplete(true);
+      finishOrder(order);
       orderJpaRepository.save(order);
     });
     return orderDB.map(orderMapper::toDomain);
+  }
+
+  private void finishOrder(OrderDB order) {
+    order.setOrderDate(LocalDateTime.now());
+    order.setComplete(true);
+    updateOrderTotalAmount(order);
+  }
+
+  private void updateOrderTotalAmount(OrderDB order){
+
+      order.setTotal(order.getItems().stream().mapToDouble(OrderItemDB::getTotal).sum());
+
+  }
+
+  @Override
+  public Optional<Order> getLastOrderCompleted() {
+    return orderJpaRepository.findLastOrderDBCompleted().map(orderMapper::toDomain);
   }
 }
