@@ -7,6 +7,9 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 
 
+/**
+ * Controller class that handles operations related to products.
+ */
 @Controller
 public class ProductsController  implements ProductsControllerApi {
 
@@ -18,12 +21,20 @@ public class ProductsController  implements ProductsControllerApi {
 
   }
 
-
+  /**
+   * Retrieves all products.
+   * @return A ResponseEntity containing the response details as a ResponseDTO.
+   */
   @Override
   public ResponseEntity<ResponseDTO> getAllProducts() {
     return productsService.getAllProducts();
   }
 
+  /**
+   * Retrieves a product by its ID.
+   * @param id Product id (required)
+   * @return A ResponseEntity containing the response details as a ResponseDTO.
+   */
   @Override
   public ResponseEntity<ResponseDTO> getProductById(Integer id) {
     return productsService.getProductById(id);

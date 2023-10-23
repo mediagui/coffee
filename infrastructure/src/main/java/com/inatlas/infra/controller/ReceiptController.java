@@ -9,6 +9,9 @@ import org.springframework.stereotype.Controller;
 import java.io.IOException;
 
 
+/**
+ * Controller class that handles operations related to receipts.
+ */
 @Controller
 public class ReceiptController implements ReceiptControllerApi {
 
@@ -17,6 +20,11 @@ public class ReceiptController implements ReceiptControllerApi {
     this.receiptService = receiptService;
   }
 
+  /**
+   * Retrieves a receipt.
+   * @param format Format of the receipt (required)
+   * @return A ResponseEntity containing the response details as a PDF.
+   */
   @Override
   public ResponseEntity<Resource> getReceipt(String format) throws IOException {
     return receiptService.getReceipt(format);
