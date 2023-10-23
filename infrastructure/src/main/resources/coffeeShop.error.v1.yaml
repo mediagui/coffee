@@ -1,0 +1,44 @@
+openapi: 3.0.3
+info:
+  title: Coffee Shop Order
+  description: Coffee Shop Order API
+  version: 1.0.0
+servers:
+  - url: http://localhost:8080
+    description: Local server
+paths:
+  /api/v1/coffeeShop/order:
+    get:
+      summary: Get actual error
+      operationId: getError
+      tags:
+        - error-controller
+      responses:
+        200:
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorDTO'
+        404:
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorDTO'
+        500:
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorDTO'
+        501:
+          description: Not Implemented
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorDTO'
+components:
+  schemas:
+    ErrorDTO:
+      $ref: './components.v1.yaml#/components/schemas/ErrorDTO'
