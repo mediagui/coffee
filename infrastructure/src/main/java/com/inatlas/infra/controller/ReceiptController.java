@@ -26,7 +26,7 @@ public class ReceiptController implements ReceiptControllerApi {
    * @return A ResponseEntity containing the response details as a PDF.
    */
   @Override
-  public ResponseEntity<Resource> getReceipt(String format) throws IOException {
+  public ResponseEntity<Resource> getReceipt(String format) {
     return receiptService.getReceipt(format);
   }
 

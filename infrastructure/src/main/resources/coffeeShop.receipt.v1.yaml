@@ -30,6 +30,12 @@ paths:
                 schema:
                   type: string
                   format: binary
+        400:
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorDTO'
         404:
           description: Not Found
           content:
