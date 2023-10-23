@@ -10,4 +10,6 @@ public interface OperationsOnOrderUseCase {
   Optional<Order> getActualOrder();
   void setCompleted(Integer id);
   Optional<Order> addProductToOrder(Integer productId, Integer amount);
+
+  Optional<Order> payOrder();
 }

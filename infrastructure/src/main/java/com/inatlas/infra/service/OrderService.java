@@ -15,7 +15,6 @@ public class OrderService {
 
   private final OrderDTOMapper orderDTOMapper;
   private final OperationsOnOrderUseCase operationsOnOrderUseCase;
-  private final PayOrderUseCase payOrderUseCase;
 
   /**
    * Constructs an instance of OrderService with the provided dependencies.
@@ -27,7 +26,6 @@ public class OrderService {
   public OrderService(OrderDTOMapper orderDTOMapper, OperationsOnOrderUseCase operationsOnOrderUseCase, PayOrderUseCase payOrderUseCase) {
     this.orderDTOMapper = orderDTOMapper;
     this.operationsOnOrderUseCase = operationsOnOrderUseCase;
-    this.payOrderUseCase = payOrderUseCase;
   }
 
   /**
@@ -47,6 +45,6 @@ public class OrderService {
    * @return A ResponseEntity containing the updated order details as an OrderDTO.
    */
   public ResponseEntity<OrderDTO> payOrder() {
-    return ResponseEntity.ok(payOrderUseCase.payOrder().map(orderDTOMapper::toDTO).get());
+    return ResponseEntity.ok(operationsOnOrderUseCase.payOrder().map(orderDTOMapper::toDTO).get());
   }
 }

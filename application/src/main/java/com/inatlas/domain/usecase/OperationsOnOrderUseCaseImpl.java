@@ -10,9 +10,11 @@ import java.util.Optional;
 public class OperationsOnOrderUseCaseImpl implements OperationsOnOrderUseCase {
 
   private final OrderRepository orderRepository;
+  private final PayOrderUseCase payOrderUseCase;
 
-  public OperationsOnOrderUseCaseImpl(OrderRepository orderRepository) {
+  public OperationsOnOrderUseCaseImpl(OrderRepository orderRepository, PayOrderUseCase payOrderUseCase) {
     this.orderRepository = orderRepository;
+    this.payOrderUseCase = payOrderUseCase;
   }
 
   @Override
@@ -40,5 +42,10 @@ public class OperationsOnOrderUseCaseImpl implements OperationsOnOrderUseCase {
   @Override
   public Optional<Order> getActualOrder() {
     return orderRepository.getActualOrder();
+  }
+
+  @Override
+  public Optional<Order> payOrder() {
+    return payOrderUseCase.payOrder();
   }
 }
