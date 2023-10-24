@@ -76,6 +76,7 @@
             </executions>
             <configuration>
                 <mainClass>com.inatlas.CoffeeShopApplication</mainClass>
+                <finalName>coffee-shop</finalName>
             </configuration>
         </plugin>
     </plugins>

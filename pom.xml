@@ -31,6 +31,7 @@
         <pdfbox.version>3.0.0</pdfbox.version>
         <itextpdf.version>5.5.13.3</itextpdf.version>
         <jackson-datatype-jsr310.version>2.15.3</jackson-datatype-jsr310.version>
+        <javax.validation.version>2.0.1.Final</javax.validation.version>
 
         <!-- Plugins version -->
         <maven-compiler-plugin.version>3.11.0</maven-compiler-plugin.version>
@@ -140,6 +141,13 @@
                 <groupId>com.fasterxml.jackson.datatype</groupId>
                 <artifactId>jackson-datatype-jsr310</artifactId>
                 <version>${jackson-datatype-jsr310.version}</version>
+            </dependency>
+
+            <!-- Validation -->
+            <dependency>
+                <groupId>javax.validation</groupId>
+                <artifactId>validation-api</artifactId>
+                <version>${javax.validation.version}</version>
             </dependency>
         </dependencies>
     </dependencyManagement>
