@@ -16,9 +16,15 @@ The commits are not as clear as they should be, because of the time constraints.
 ```bash
 docker build -t coffee .
 ```
+```bash
+podman build -t coffee .
+```
 3. Run the docker image
 ```bash 
 docker run -p 8080:8080 coffee
+```
+```bash 
+podman run -p 8080:8080 coffee
 ```
 4. Open the browser and go to [http://localhost:8080](http://localhost:8080)
 5. Enjoy the coffee :coffee:
