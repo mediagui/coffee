@@ -19,7 +19,7 @@ import java.util.Optional;
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
 
-public class AddSelectedProductsToOrderUseCaseImplTest {
+class AddSelectedProductsToOrderUseCaseImplTest {
 
   @Mock
   private ProductRepository productRepository;
@@ -43,7 +43,7 @@ public class AddSelectedProductsToOrderUseCaseImplTest {
   }
 
   @Test
-  public void testAddProduct_ExistingProduct() {
+  void testAddProduct_ExistingProduct() {
     int choice = 1;
     List<OrderItem> orderItems = new ArrayList<>();
     Product product = new Product(1, "Product A", 1.0,false, "food");
@@ -61,7 +61,7 @@ public class AddSelectedProductsToOrderUseCaseImplTest {
 
   }
   @Test
-  public void testAddProduct_ExistingProduct_UpdateAmount() {
+  void testAddProduct_ExistingProduct_UpdateAmount() {
     int choice = 1;
     List<OrderItem> orderItems = new ArrayList<>();
     Product product = new Product(1, "Product A", 1.0,false, "food");
@@ -82,7 +82,7 @@ public class AddSelectedProductsToOrderUseCaseImplTest {
 
 
   @Test()
-  public void testAddProduct_NonExistingProduct() {
+  void testAddProduct_NonExistingProduct() {
     int choice = 105;
     List<OrderItem> orderItems = new ArrayList<>();
     when(productRepository.findById(choice)).thenReturn(Optional.empty());

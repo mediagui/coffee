@@ -7,7 +7,7 @@ import java.util.Optional;
 
 public interface ProductRepository {
 
-  List<Product> findAll();
+  Optional<List<Product>> findAll();
 
   int count();
 

@@ -13,8 +13,7 @@ import java.util.stream.Collectors;
 import static com.inatlas.util.LogUtil.debug;
 
 public class PromotionUtil {
-
-
+  private PromotionUtil() {  }
 
   /**
    * Gets the most beneficial promotion from a list of promotions.
@@ -29,7 +28,7 @@ public class PromotionUtil {
     List<Optional<Promotion>> promotionsList =
             Arrays.asList(promotions)
                     .stream()
-                    .filter(promotion -> promotion.isPresent())
+                    .filter(Optional::isPresent)
                     .collect(Collectors.toList());
 
     if(!promotionsList.isEmpty()) {
@@ -84,7 +83,7 @@ public class PromotionUtil {
   public static List<OrderItem> cloneOrderItems(List<OrderItem> orderItems) {
 
     // Get free espressos in the list of orderItems
-     List<OrderItem> freeEspressos = orderItems.stream().filter(item -> item.isPromotion()).collect(Collectors.toList());
+     List<OrderItem> freeEspressos = orderItems.stream().filter(OrderItem::isPromotion).collect(Collectors.toList());
 
 
     List<OrderItem> clonedOrderItems = new ArrayList<>();

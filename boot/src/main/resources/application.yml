@@ -1,10 +1,13 @@
-# Configuración de la base de datos y consola H2
 spring:
+  mvc:
+    pathmatch:
+      matching-strategy: ant_path_matcher
+    log-request-details: true
   datasource:
     url: jdbc:h2:mem:testdb
     driver-class-name: org.h2.Driver
     username: sa
-    password: sa
+    password:
   h2:
     console:
       enabled: true
@@ -12,8 +15,6 @@ spring:
   jpa:
     hibernate:
       ddl-auto: create-drop
-  profiles:
-    active: web
 coffeeShop:
   freeEspresso:
     numberOfLattesForPromotion: 2
@@ -24,6 +25,14 @@ coffeeShop:
     amountToApplyPromotion: 50
     mustHaveFoodAndDrink: true
     lattePrice: 3.0
-
+server:
+  error:
+    whitelabel:
+      enabled: true
+    path: /error
+    include-message: always
+    include-binding-errors: always
+    include-stacktrace: on_param
+    include-exception: true
 debug: true
 

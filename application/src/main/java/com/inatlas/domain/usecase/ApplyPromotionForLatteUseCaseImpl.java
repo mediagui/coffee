@@ -14,7 +14,7 @@ import static com.inatlas.util.LogUtil.info;
 @Component
 public class ApplyPromotionForLatteUseCaseImpl implements ApplyPromotionForLatteUseCase {
 
-  @Value("${coffeeShop.freeEspresso.numberOfLattes:2}")
+  @Value("${coffeeShop.freeEspresso.numberOfLattesForPromotion:2}")
   private int numberOfLattesForPromotion;
 
   ProductRepository productRepository;
@@ -122,17 +122,14 @@ public class ApplyPromotionForLatteUseCaseImpl implements ApplyPromotionForLatte
     String espressoName = "Espresso" + (isPromotion ? " Gratis *" : "");
     OrderItem orderItem = orderItems.stream().filter(item -> item.getProduct().getName().endsWith(espressoName) && item.getProduct().isPromotion() == isPromotion)
             .findFirst()
-            .orElseGet(() -> {
-              final boolean isPromotional = isPromotion;
-              return createOrderItem(isPromotion, espressoName);
-            });
+            .orElseGet(() -> createOrderItem(isPromotion, espressoName));
 
     return new OrderItem(orderItem);
   }
 
   private OrderItem createOrderItem(boolean isPromotion, String espressoName) {
 
-    Product product = productRepository.findByName("Espresso").get();
+    Product product = productRepository.findByName("Espresso").orElseGet(() -> new Product(2, espressoName, 0d, isPromotion, "Drink"));
     product.setName(espressoName);
     product.setPromotion(isPromotion);
 

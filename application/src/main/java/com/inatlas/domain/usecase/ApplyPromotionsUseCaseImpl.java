@@ -25,18 +25,11 @@ public class ApplyPromotionsUseCaseImpl implements ApplyPromotionsUseCase {
   private final ApplyPromotionForTotalProductsUseCase applyPromotionForTotalProductsUseCase;
   private final ApplyPromotionForFoodAndDrinksOver50UseCase applyPromotionForFoodAndDrinksOver50UseCase;
 
-  public ApplyPromotionsUseCaseImpl(ProductRepository productRepository, ApplyPromotionForLatteUseCase applyPromotionForLatteUseCase, ApplyPromotionForTotalProductsUseCase applyPromotionForTotalProductsUseCase, ApplyPromotionForFoodAndDrinksOver50UseCase applyPromotionForFoodAndDrinksOver50UseCase) {
+  public ApplyPromotionsUseCaseImpl(ApplyPromotionForLatteUseCase applyPromotionForLatteUseCase, ApplyPromotionForTotalProductsUseCase applyPromotionForTotalProductsUseCase, ApplyPromotionForFoodAndDrinksOver50UseCase applyPromotionForFoodAndDrinksOver50UseCase) {
     this.applyPromotionForLatteUseCase = applyPromotionForLatteUseCase;
     this.applyPromotionForTotalProductsUseCase = applyPromotionForTotalProductsUseCase;
     this.applyPromotionForFoodAndDrinksOver50UseCase = applyPromotionForFoodAndDrinksOver50UseCase;
   }
-
-  /**
-   * Applies promotions to the given order.
-   *
-   * @param order The order to applyTo promotions to.
-   * @return
-   */
 
 
   /**
@@ -60,10 +53,10 @@ public class ApplyPromotionsUseCaseImpl implements ApplyPromotionsUseCase {
 
   }
 
-  private static int getAmountOfLattes(List<OrderItem> orderItems) {
-    return orderItems.stream().filter(item -> item.getProduct().getName().contains("Latte")).findFirst()
-            .orElseGet(() -> new OrderItem(0, null))
-            .getAmount();
-  }
+//  private static int getAmountOfLattes(List<OrderItem> orderItems) {
+//    return orderItems.stream().filter(item -> item.getProduct().getName().contains("Latte")).findFirst()
+//            .orElseGet(() -> new OrderItem(0, null))
+//            .getAmount();
+//  }
 
 }

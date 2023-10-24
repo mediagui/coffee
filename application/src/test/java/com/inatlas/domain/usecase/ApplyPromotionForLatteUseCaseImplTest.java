@@ -59,7 +59,7 @@ class ApplyPromotionForLatteUseCaseImplTest {
 
   @ParameterizedTest(name = "The order contains {1} order items with 2 products in each order.")
   @MethodSource("generateOrderItemsCases")
-  public void testApplyPromotionToOrder(List<OrderItem> orderItems, int numberOfOrderItems, OrderItem paidEspressos, OrderItem expectedToBePaidEspressos){
+  void testApplyPromotionToOrder(List<OrderItem> orderItems, int numberOfOrderItems, OrderItem paidEspressos, OrderItem expectedToBePaidEspressos){
 
     when(productRepository.findByName("Latte")).thenReturn(Optional.of(generateLatte()));
     when(productRepository.findByName("Espresso")).thenReturn(Optional.of(generateEspresso(false)));

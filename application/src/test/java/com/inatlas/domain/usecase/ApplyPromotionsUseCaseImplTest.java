@@ -74,19 +74,6 @@ class ApplyPromotionsUseCaseImplTest {
     assertNotEquals(Optional.empty(), bestPromotion);
     assertNotNull(bestPromotion.get());
 
-
-
-
-
-
-//
-//    // Apply promotions
-//    Optional<Promotion> bestPromotion = applyPromotionsUseCase.applyAndGetTheBestPromotion(order);
-//
-//    // Assert the best promotion is applied correctly
-//    assertTrue(bestPromotion.isPresent());
-//    assertEquals("Latte Promotion", bestPromotion.get().getName());
-//    assertEquals(2.5, bestPromotion.get().getAmount());
   }
 }
 // Tests End

@@ -5,75 +5,184 @@
     <parent>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-starter-parent</artifactId>
-        <version>2.7.6</version>
+        <version>2.7.17</version>
     </parent>
 
 
     <groupId>com.inatlas</groupId>
     <artifactId>coffeeshop</artifactId>
-    <version>1.0-SNAPSHOT</version>
+    <version>2.0-SNAPSHOT</version>
     <packaging>pom</packaging>
 
-    <name>coffeeshop</name>
-    <url>http://www.inatlas.com</url>
+    <name>CoffeeShop</name>
+
 
     <properties>
+        <!-- Dependencies version -->
+        <lombok.version>1.18.30</lombok.version>
+        <mapstruct.version>1.4.2.Final</mapstruct.version>
+        <springfox-swagger2.version>3.0.0</springfox-swagger2.version>
+        <springfox-boot-starter>3.0.0</springfox-boot-starter>
+        <springfox-swagger-ui.version>3.0.0</springfox-swagger-ui.version>
+        <springfox-openapi-ui.version>1.7.0</springfox-openapi-ui.version>
+        <jackson-databind-nullable.version>0.2.6</jackson-databind-nullable.version>
+        <swagger-annotations.version>2.2.16</swagger-annotations.version>
+        <h2.db.version>2.2.220</h2.db.version>
+        <pdfbox.version>3.0.0</pdfbox.version>
+        <itextpdf.version>5.5.13.3</itextpdf.version>
+        <jackson-datatype-jsr310.version>2.15.3</jackson-datatype-jsr310.version>
+        <javax.validation.version>2.0.1.Final</javax.validation.version>
+
+        <!-- Plugins version -->
+        <maven-compiler-plugin.version>3.11.0</maven-compiler-plugin.version>
+        <mapstruct-processor.version>1.4.2.Final</mapstruct-processor.version>
+        <maven-assembly-plugin.version>3.6.0</maven-assembly-plugin.version>
+<!--        <maven-assembly-plugin.version>2.5.3</maven-assembly-plugin.version>-->
+        <jacoco-maven-plugin.version>0.8.10</jacoco-maven-plugin.version>
+        <openapi-generator-maven-plugin.version>7.0.1</openapi-generator-maven-plugin.version>
+
+        <!-- Other configurations -->
         <maven.compiler.source>11</maven.compiler.source>
         <maven.compiler.target>11</maven.compiler.target>
         <java.version>11</java.version>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <!-- Jacoco -->
+        <jacoco.minimum.line.coverage>0.80</jacoco.minimum.line.coverage>
+        <jacoco.maximum.complexity.coverage>0.20</jacoco.maximum.complexity.coverage>
     </properties>
+
 
     <dependencyManagement>
         <dependencies>
+            <!-- CoffeeShop -->
+
+            <dependency>
+                <groupId>com.inatlas</groupId>
+                <artifactId>domain</artifactId>
+                <version>1.0-SNAPSHOT</version>
+                <scope>compile</scope>
+            </dependency>
+            <dependency>
+                <groupId>com.inatlas</groupId>
+                <artifactId>application</artifactId>
+                <version>2.0-SNAPSHOT</version>
+                <scope>compile</scope>
+            </dependency>
+            <dependency>
+                <groupId>com.inatlas</groupId>
+                <artifactId>infrastructure</artifactId>
+                <version>1.0-SNAPSHOT</version>
+                <scope>compile</scope>
+            </dependency>
+            <dependency>
+                <groupId>com.inatlas</groupId>
+                <artifactId>boot</artifactId>
+                <version>1.0-SNAPSHOT</version>
+                <scope>compile</scope>
+            </dependency>
+
+            <!-- Lombok -->
             <dependency>
                 <groupId>org.projectlombok</groupId>
                 <artifactId>lombok</artifactId>
-                <version>1.18.30</version>
+                <version>${lombok.version}</version>
             </dependency>
+
             <!-- MapStruct -->
             <dependency>
                 <groupId>org.mapstruct</groupId>
                 <artifactId>mapstruct</artifactId>
-                <version>1.4.2.Final</version>
+                <version>${mapstruct.version}</version>
             </dependency>
 
             <!-- Swagger -->
             <dependency>
                 <groupId>io.springfox</groupId>
-                <artifactId>springfox-swagger2</artifactId>
-                <version>3.0.0</version>
-            </dependency>
-            <dependency>
-                <groupId>io.springfox</groupId>
-                <artifactId>springfox-swagger-ui</artifactId>
-                <version>3.0.0</version>
+                <artifactId>springfox-boot-starter</artifactId>
+                <version>${springfox-swagger2.version}</version>
             </dependency>
             <dependency>
                 <groupId>org.springdoc</groupId>
                 <artifactId>springdoc-openapi-ui</artifactId>
-                <version>1.7.0</version>
+                <version>${springfox-openapi-ui.version}</version>
             </dependency>
             <dependency>
                 <groupId>org.openapitools</groupId>
                 <artifactId>jackson-databind-nullable</artifactId>
-                <version>0.2.6</version>
+                <version>${jackson-databind-nullable.version}</version>
             </dependency>
             <dependency>
                 <groupId>io.swagger.core.v3</groupId>
                 <artifactId>swagger-annotations</artifactId>
-                <version>2.2.16</version>
+                <version>${swagger-annotations.version}</version>
             </dependency>
 
+            <!-- H2 database -->
+            <dependency>
+                <groupId>com.h2database</groupId>
+                <artifactId>h2</artifactId>
+                <scope>runtime</scope>
+                <version>${h2.db.version}</version>
+            </dependency>
+            <!-- PDF -->
+            <dependency>
+                <groupId>org.apache.pdfbox</groupId>
+                <artifactId>pdfbox</artifactId>
+                <version>${pdfbox.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>com.itextpdf</groupId>
+                <artifactId>itextpdf</artifactId>
+                <version>${itextpdf.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>com.fasterxml.jackson.datatype</groupId>
+                <artifactId>jackson-datatype-jsr310</artifactId>
+                <version>${jackson-datatype-jsr310.version}</version>
+            </dependency>
+
+            <!-- Validation -->
+            <dependency>
+                <groupId>javax.validation</groupId>
+                <artifactId>validation-api</artifactId>
+                <version>${javax.validation.version}</version>
+            </dependency>
         </dependencies>
     </dependencyManagement>
 
+    <!-- Spring Boot -->
+
+
     <build>
         <plugins>
+<!--            <plugin>-->
+<!--                <groupId>org.apache.maven.plugins</groupId>-->
+<!--                <artifactId>maven-jar-plugin</artifactId>-->
+<!--                <version>2.6</version>-->
+<!--                <executions>-->
+<!--                    <execution>-->
+<!--                        <goals>-->
+<!--                            <goal>jar</goal>-->
+<!--                        </goals>-->
+<!--                        <id>jar</id>-->
+<!--                    </execution>-->
+<!--                </executions>-->
+<!--                <configuration>-->
+<!--                    <archive>-->
+<!--                        <manifest>-->
+<!--                            <addClasspath>true</addClasspath>-->
+<!--                            <mainClass>com.inatlas.CoffeeShopApplication</mainClass>-->
+<!--                        </manifest>-->
+<!--                    </archive>-->
+<!--                </configuration>-->
+<!--            </plugin>-->
+
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
-                <version>3.11.0</version>
+                <version>${maven-compiler-plugin.version}</version>
                 <configuration>
                     <source>${maven.compiler.source}</source>
                     <target>${maven.compiler.target}</target>
@@ -81,27 +190,46 @@
                         <path>
                             <groupId>org.mapstruct</groupId>
                             <artifactId>mapstruct-processor</artifactId>
-                            <version>1.4.2.Final</version>
+                            <version>${mapstruct-processor.version}</version>
                         </path>
                     </annotationProcessorPaths>
                 </configuration>
             </plugin>
+<!--            <plugin>-->
+<!--                <artifactId>maven-assembly-plugin</artifactId>-->
+<!--                <version>${maven-assembly-plugin.version}</version>-->
+<!--                <executions>-->
+<!--                    <execution>-->
+<!--                        <phase>package</phase>-->
+<!--                        <goals>-->
+<!--                            <goal>single</goal>-->
+<!--                        </goals>-->
+<!--                        <configuration>-->
+<!--                            <archive>-->
+<!--                                <manifest>-->
+<!--                                    <mainClass>com.inatlas.CoffeeShopApplication</mainClass>-->
+<!--                                </manifest>-->
+<!--                            </archive>-->
+<!--                            <descriptorRefs>-->
+<!--                                <descriptorRef>jar-with-dependencies</descriptorRef>-->
+<!--                            </descriptorRefs>-->
+<!--                        </configuration>-->
+<!--                    </execution>-->
+<!--                </executions>-->
+<!--            </plugin>-->
+<!--            <plugin>-->
+<!--                <groupId>org.springframework.boot</groupId>-->
+<!--                <artifactId>spring-boot-maven-plugin</artifactId>-->
+<!--                <version>2.7.16</version>-->
+<!--                <configuration>-->
+<!--                    <mainClass>com.inatlas.CoffeeShopApplication</mainClass>-->
+<!--                </configuration>-->
+<!--            </plugin>-->
 
-            <plugin>
-                <artifactId>maven-assembly-plugin</artifactId>
-                <version>2.5.3</version>
-                <configuration>
-                    <archive>
-                        <manifest>
-                            <mainClass>com.inatlas.CoffeeShopApplication</mainClass>
-                        </manifest>
-                    </archive>
-                </configuration>
-            </plugin>
             <plugin>
                 <groupId>org.jacoco</groupId>
                 <artifactId>jacoco-maven-plugin</artifactId>
-                <version>0.8.10</version>
+                <version>${jacoco-maven-plugin.version}</version>
                 <configuration>
                     <excludes>
                         <exclude>**/util/LogUtil.class</exclude>
@@ -110,10 +238,16 @@
                         <exclude>**/config/*</exclude>
                         <exclude>**/*Command*.*</exclude>
                         <exclude>**/domain/entity/*</exclude>
+                        <exclude>**/domain/db/entity/*</exclude>
+                        <exclude>**/domain/db/mapper/*</exclude>
+                        <exclude>**/domain/db/repository/entity/*</exclude>
                         <exclude>**/domain/enums/*</exclude>
                         <exclude>**/domain/usecase/command/*</exclude>
                         <exclude>**/domain/usecase/command/Print*UseCaseImpl.*</exclude>
-
+                        <exclude>**/domain/usecase/*Printer.*</exclude>
+                        <exclude>**/infra/api/**/*ControllerApi.*</exclude>
+                        <exclude>**/infra/**/ApiUtil*.*</exclude>
+                        <exclude>**/CoffeeShopApplication.*</exclude>
                     </excludes>
                 </configuration>
                 <executions>
@@ -122,54 +256,17 @@
                             <goal>prepare-agent</goal>
                         </goals>
                     </execution>
-                    <execution>
-                        <id>report</id>
-                        <phase>prepare-package</phase>
-                        <goals>
-                            <goal>report</goal>
-                        </goals>
-                    </execution>
-                    <execution>
-                        <id>jacoco-check</id>
-                        <goals>
-                            <goal>check</goal>
-                        </goals>
-                        <configuration>
-                            <rules>
-                                <rule>
-                                    <element>PACKAGE</element>
-                                    <limits>
-                                        <limit>
-                                            <counter>LINE</counter>
-                                            <value>COVEREDRATIO</value>
-                                            <minimum>0.80</minimum>
-                                        </limit>
-                                    </limits>
-                                </rule>
-                                <rule>
-                                    <element>BUNDLE</element>
-                                    <limits>
-                                        <limit>
-                                            <counter>COMPLEXITY</counter>
-                                            <value>COVEREDRATIO</value>
-                                            <minimum>0.20</minimum>
-                                        </limit>
-                                    </limits>
-                                </rule>
-                            </rules>
-                        </configuration>
-                    </execution>
                 </executions>
             </plugin>
-
         </plugins>
     </build>
-
     <modules>
         <module>domain</module>
         <module>application</module>
         <module>infrastructure</module>
         <module>boot</module>
+        <module>aggreate-report</module>
     </modules>
+
 
 </project>

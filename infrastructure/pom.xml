@@ -7,14 +7,22 @@
     <parent>
         <groupId>com.inatlas</groupId>
         <artifactId>coffeeshop</artifactId>
-        <version>1.0-SNAPSHOT</version>
+        <version>2.0-SNAPSHOT</version>
     </parent>
 
-    <groupId>com.inatlas</groupId>
     <artifactId>infrastructure</artifactId>
     <version>1.0-SNAPSHOT</version>
 
     <dependencies>
+        <!-- CoffeeShop -->
+        <dependency>
+            <groupId>com.inatlas</groupId>
+            <artifactId>application</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.inatlas</groupId>
+            <artifactId>domain</artifactId>
+        </dependency>
         <!-- Spring Boot -->
         <dependency>
             <groupId>org.springframework.boot</groupId>
@@ -24,6 +32,11 @@
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-data-jpa</artifactId>
         </dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-autoconfigure</artifactId>
+        </dependency>
+
         <!-- MapStruct -->
         <dependency>
             <groupId>org.mapstruct</groupId>
@@ -31,18 +44,15 @@
         </dependency>
 
         <!-- Swagger -->
+
         <dependency>
             <groupId>io.springfox</groupId>
-            <artifactId>springfox-swagger2</artifactId>
+            <artifactId>springfox-boot-starter</artifactId>
         </dependency>
-        <dependency>
-            <groupId>io.springfox</groupId>
-            <artifactId>springfox-swagger-ui</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>org.springdoc</groupId>
-            <artifactId>springdoc-openapi-ui</artifactId>
-        </dependency>
+<!--        <dependency>-->
+<!--            <groupId>org.springdoc</groupId>-->
+<!--            <artifactId>springdoc-openapi-ui</artifactId>-->
+<!--        </dependency>-->
         <dependency>
             <groupId>org.openapitools</groupId>
             <artifactId>jackson-databind-nullable</artifactId>
@@ -52,46 +62,141 @@
             <artifactId>swagger-annotations</artifactId>
         </dependency>
 
-        <!-- CoffeeShop -->
+
+
+        <!-- Test -->
         <dependency>
-            <groupId>com.inatlas</groupId>
-            <artifactId>application</artifactId>
-            <version>1.0-SNAPSHOT</version>
-            <scope>compile</scope>
+            <groupId>org.mockito</groupId>
+            <artifactId>mockito-core</artifactId>
+            <scope>test</scope>
         </dependency>
         <dependency>
-            <groupId>com.inatlas</groupId>
-            <artifactId>domain</artifactId>
-            <version>1.0-SNAPSHOT</version>
-            <scope>compile</scope>
+            <groupId>org.junit.jupiter</groupId>
+            <artifactId>junit-jupiter</artifactId>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-test-autoconfigure</artifactId>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-test</artifactId>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.mockito</groupId>
+            <artifactId>mockito-junit-jupiter</artifactId>
+            <scope>test</scope>
         </dependency>
 
+
+        <!-- PDF -->
+        <dependency>
+            <groupId>org.apache.pdfbox</groupId>
+            <artifactId>pdfbox</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>com.itextpdf</groupId>
+            <artifactId>itextpdf</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>com.fasterxml.jackson.datatype</groupId>
+            <artifactId>jackson-datatype-jsr310</artifactId>
+        </dependency>
+
+        <!-- JPA -->
+        <dependency>
+            <groupId>jakarta.persistence</groupId>
+            <artifactId>jakarta.persistence-api</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>javax.validation</groupId>
+            <artifactId>validation-api</artifactId>
+        </dependency>
     </dependencies>
+
     <build>
+        <pluginManagement>
+            <plugins>
+                <plugin>
+                    <groupId>org.openapitools</groupId>
+                    <artifactId>openapi-generator-maven-plugin</artifactId>
+                    <version>${openapi-generator-maven-plugin.version}</version>
+                    <configuration>
+                        <generatorName>spring</generatorName>
+                        <modelPackage>com.inatlas.infra.api.dto</modelPackage>
+                        <generateApiTests>false</generateApiTests>
+                        <generateModelTests>false</generateModelTests>
+                        <configOptions>
+                            <interfaceOnly>true</interfaceOnly>
+                            <serializableModel>true</serializableModel>
+                            <useTags>true</useTags>
+                        </configOptions>
+                        <enablePostProcessFile>true</enablePostProcessFile>
+                    </configuration>
+                </plugin>
+            </plugins>
+        </pluginManagement>
+
         <plugins>
             <plugin>
-                <groupId>org.openapitools</groupId>
-                <artifactId>openapi-generator-maven-plugin</artifactId>
-                <version>7.0.1</version>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-failsafe-plugin</artifactId>
+                <version>3.1.2</version>
                 <executions>
                     <execution>
                         <goals>
+                            <goal>integration-test</goal>
+                            <goal>verify</goal>
+                        </goals>
+                    </execution>
+                </executions>
+                <configuration>
+                    <includes>
+                        <include>**/*IntegrationTest.java</include>
+                    </includes>
+                </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.openapitools</groupId>
+                <artifactId>openapi-generator-maven-plugin</artifactId>
+                <executions>
+                    <execution>
+                        <id>Products_API</id>
+                        <goals>
                             <goal>generate</goal>
                         </goals>
+                        <phase>generate-sources</phase>
                         <configuration>
-                            <inputSpec>
-                                ${project.basedir}/src/main/resources/coffeeShop.yaml
-                            </inputSpec>
-                            <generatorName>spring</generatorName>
-                            <apiPackage>com.inatlas.infra.api</apiPackage>
-                            <modelPackage>com.inatlas.infra.dto</modelPackage>
-                            <supportingFilesToGenerate>
-                                ApiUtil.java
-                            </supportingFilesToGenerate>
-                            <apiNameSuffix>CoffeeShop</apiNameSuffix>
-                            <configOptions>
-                                <delegatePattern>true</delegatePattern>
-                            </configOptions>
+                            <apiPackage>com.inatlas.infra.api.product</apiPackage>
+                            <inputSpec>${project.basedir}/src/main/resources/coffeeShop.products.v1.yaml</inputSpec>
+                        </configuration>
+                    </execution>
+                    <execution>
+                        <id>Order_API</id>
+                        <goals>
+                            <goal>generate</goal>
+                        </goals>
+                        <phase>generate-sources</phase>
+                        <configuration>
+                            <apiPackage>com.inatlas.infra.api.order</apiPackage>
+                            <inputSpec>${project.basedir}/src/main/resources/coffeeShop.order.v1.yaml</inputSpec>
+                        </configuration>
+                    </execution>
+                    <execution>
+                        <id>Receipt_API</id>
+                        <goals>
+                            <goal>generate</goal>
+                        </goals>
+                        <phase>generate-sources</phase>
+                        <configuration>
+                            <apiPackage>com.inatlas.infra.api.receipt</apiPackage>
+                            <inputSpec>${project.basedir}/src/main/resources/coffeeShop.receipt.v1.yaml</inputSpec>
                         </configuration>
                     </execution>
                 </executions>

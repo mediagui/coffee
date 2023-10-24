@@ -5,6 +5,8 @@ import org.slf4j.LoggerFactory;
 
 
 public class LogUtil {
+  private LogUtil() {
+  }
 
   private static final Logger log = LoggerFactory.getLogger(LogUtil.class);
 

@@ -23,4 +23,6 @@ public interface ProductJpaRepository extends JpaRepository<ProductDB,Integer> {
    */
   @Query("from ProductDB p where p.name = ?1")
   Optional<ProductDB> findByName(String name);
+
+  Optional<ProductDB> findById(Integer id);
 }
