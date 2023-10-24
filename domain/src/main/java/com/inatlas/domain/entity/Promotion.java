@@ -20,6 +20,7 @@ public class Promotion {
   public Promotion(double costAmount, List<OrderItem> orderItems, PromotionUseCase promotionUseCase) {
     this.amount = costAmount;
     this.orderItems = orderItems;
+    //TODO: Refactor this to exclude the use case from the entity
     this.promotionUseCase = promotionUseCase;
   }
   public void applyTo(Order order){
