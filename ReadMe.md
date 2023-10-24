@@ -29,7 +29,6 @@ podman run -p 8080:8080 coffee
 4. Open the browser and go to [http://localhost:8080](http://localhost:8080)
 5. Enjoy the coffee :coffee:
 
-The endpoints are available at [http://localhost:8080/swagger-ui/](http://localhost:8080/swagger-ui/)
 
 #### Without Docker/Podman
 1. [Java 11](https://www.oracle.com/java/technologies/javase-jdk11-downloads.html)
@@ -55,6 +54,17 @@ With this option you will be able to see the test coverage in the following file
 ```bash
   coffeeshop/agregate-repor/target/site/jacoco/index.html
 ```
+### EndPoints Documentation
+The endpoints are available at [http://localhost:8080/swagger-ui/](http://localhost:8080/swagger-ui/)
+#### Order Controller
+* [Order Controller](http://localhost:8080/swagger-ui/#/order-controller)
+#### Product Controller
+* [Product Controller](http://localhost:8080/swagger-ui/#/product-controller)
+#### Receipt Controller
+* [Receipt Controller](http://localhost:8080/swagger-ui/#/receipt-controller)
+
+In the file Api Documentation.postman_collection.json you can find a Postman collection with the endpoints
+to test in the application.
 
 ## External libraries used
 
