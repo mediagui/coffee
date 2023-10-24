@@ -24,6 +24,7 @@ public class Promotion {
     this.promotionUseCase = promotionUseCase;
   }
   public void applyTo(Order order){
+    order.setPromotionApplied(this);
     promotionUseCase.applyPromotion(order.getItems());
   }
 

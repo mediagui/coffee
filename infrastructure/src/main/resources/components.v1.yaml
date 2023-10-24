@@ -49,6 +49,7 @@ components:
         - orderDate
         - complete
         - items
+        - promotion
       properties:
         items:
           type: array
@@ -60,6 +61,8 @@ components:
         amount:
           type: integer
           format: int32
+        promotion:
+          $ref: '#/components/schemas/PromotionDTO'
     OrderItemDTO:
       type: object
       required:
@@ -84,3 +87,17 @@ components:
         unitPrice:
           type: number
           format: double
+    PromotionDTO:
+      type: object
+      required:
+        - amount
+        - orderItems
+        - promotionUseCase
+      properties:
+        amount:
+          type: number
+          format: double
+        orderItems:
+          $ref: '#/components/schemas/OrderItemDTO'
+        promotionUseCase:
+            type: object
