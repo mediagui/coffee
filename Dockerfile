@@ -9,5 +9,4 @@ RUN cd /coffee && git checkout main && git pull
 # Compilamos el proyecto
 RUN cd /coffee && mvn clean install
 #Ejecutamos el jar
-ENTRYPOINT ["/opt/java/openjdk/bin/java ","-jar","/coffee/target/coffee-shop.jar"]
-
+CMD ["/opt/java/openjdk/bin/java","-jar","/coffee/boot/target/coffee-shop.jar"]
