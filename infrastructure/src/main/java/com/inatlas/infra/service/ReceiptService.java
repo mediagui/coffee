@@ -122,6 +122,8 @@ public class ReceiptService {
     if (lines.length == 0)
       throw new IOException("No lines to write");
 
+    String fileSeparator = System.getProperty("file.separator");
+
     try (PDDocument document = new PDDocument()) {
       PDPage page = new PDPage();
       document.addPage(page);
@@ -138,8 +140,9 @@ public class ReceiptService {
 
       contentStream.endText();
       contentStream.close();
-      document.save(System.getProperty("java.io.tmpdir") + "/receipt.pdf");
+
+      document.save(System.getProperty("java.io.tmpdir") + fileSeparator +"receipt.pdf");
     }
-    return Files.readAllBytes(Paths.get(System.getProperty("java.io.tmpdir") + "receipt.pdf"));
+    return Files.readAllBytes(Paths.get(System.getProperty("java.io.tmpdir") + fileSeparator + "receipt.pdf"));
   }
 }
