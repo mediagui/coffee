@@ -14,6 +14,15 @@
     <version>1.0-SNAPSHOT</version>
 
     <dependencies>
+        <!-- CoffeeShop -->
+        <dependency>
+            <groupId>com.inatlas</groupId>
+            <artifactId>application</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.inatlas</groupId>
+            <artifactId>domain</artifactId>
+        </dependency>
         <!-- Spring Boot -->
         <dependency>
             <groupId>org.springframework.boot</groupId>
@@ -25,8 +34,9 @@
         </dependency>
         <dependency>
             <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-devtools</artifactId>
+            <artifactId>spring-boot-autoconfigure</artifactId>
         </dependency>
+
         <!-- MapStruct -->
         <dependency>
             <groupId>org.mapstruct</groupId>
@@ -34,6 +44,11 @@
         </dependency>
 
         <!-- Swagger -->
+<!--        <dependency>-->
+<!--            <groupId>io.springfox</groupId>-->
+<!--            <artifactId>springfox-boot-starter</artifactId>-->
+<!--            <version>3.0.0</version>-->
+<!--        </dependency>-->
         <dependency>
             <groupId>io.springfox</groupId>
             <artifactId>springfox-swagger2</artifactId>
@@ -54,16 +69,11 @@
             <groupId>io.swagger.core.v3</groupId>
             <artifactId>swagger-annotations</artifactId>
         </dependency>
+        <dependency>
+            <groupId>org.openapitools</groupId>
+            <artifactId>jackson-databind-nullable</artifactId>
+        </dependency>
 
-        <!-- CoffeeShop -->
-        <dependency>
-            <groupId>com.inatlas</groupId>
-            <artifactId>application</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>com.inatlas</groupId>
-            <artifactId>domain</artifactId>
-        </dependency>
 
         <!-- Test -->
         <dependency>
