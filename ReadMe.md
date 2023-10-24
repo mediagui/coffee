@@ -55,6 +55,7 @@ With this option you will be able to see the test coverage in the following file
 ```bash
   coffeeshop/agregate-repor/target/site/jacoco/index.html
 ```
+
 ## External libraries used
 
  - Spring Boot 2.7.17

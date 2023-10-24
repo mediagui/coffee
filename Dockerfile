@@ -4,8 +4,10 @@ RUN apt-get update && apt-get install -y git
 
 # Clonamos el proyecto de GitHub
 RUN git clone https://github.com/mediagui/coffee.git
-RUN cd coffee && git checkout main
+RUN cd /coffee && git checkout main && git pull
 
-# Ejecutamos el JAR
-# RUN mvn clean install
-# RUN mvn cd boot spring-boot:run
+# Compilamos el proyecto
+RUN cd /coffee && mvn clean install
+#Ejecutamos el jar
+ENTRYPOINT ["/opt/java/openjdk/bin/java ","-jar","/coffee/target/coffee-shop.jar"]
+
