@@ -13,14 +13,13 @@ public class OperationsOnOrderUseCaseImpl implements OperationsOnOrderUseCase {
   private final OrderRepository orderRepository;
   private final PayOrderUseCase payOrderUseCase;
   private final ApplyPromotionsUseCase applyPromotionsUseCase;
-  private final PromotionUseCase promotionUseCase;
 
 
-  public OperationsOnOrderUseCaseImpl(OrderRepository orderRepository, PayOrderUseCase payOrderUseCase, ApplyPromotionsUseCase applyPromotionsUseCase, PromotionUseCase promotionUseCase) {
+
+  public OperationsOnOrderUseCaseImpl(OrderRepository orderRepository, PayOrderUseCase payOrderUseCase, ApplyPromotionsUseCase applyPromotionsUseCase) {
     this.orderRepository = orderRepository;
     this.payOrderUseCase = payOrderUseCase;
     this.applyPromotionsUseCase = applyPromotionsUseCase;
-    this.promotionUseCase = promotionUseCase;
   }
 
   @Override

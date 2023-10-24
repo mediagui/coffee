@@ -47,7 +47,7 @@ class OrderServiceTest {
 
     Integer productId = 1;
     Integer amount = 1;
-    OrderDTO orderDTO = new OrderDTO(List.of(generateDrinkOrderItemDTO()),1d);
+    OrderDTO orderDTO = new OrderDTO(List.of(generateDrinkOrderItemDTO()),1d,"");
     Order order = new Order(List.of(generateDrinkOrderItem()));
     order.setTotal(1d);
 

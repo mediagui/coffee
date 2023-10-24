@@ -4,10 +4,15 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 import com.inatlas.domain.entity.Order;
+import com.inatlas.domain.entity.Promotion;
+import com.inatlas.domain.usecase.ApplyPromotionForLatteUseCase;
+import com.inatlas.domain.usecase.ApplyPromotionForLatteUseCaseImpl;
+import com.inatlas.domain.usecase.ApplyPromotionsUseCase;
 import com.inatlas.domain.usecase.FindLastOrderCompletedUseCase;
 import org.junit.jupiter.api.*;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
+import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
 import org.springframework.core.io.ByteArrayResource;
 import org.springframework.core.io.Resource;
@@ -31,6 +36,11 @@ import static org.mockito.Mockito.*;
 class ReceiptServiceTest {
   @Mock
   FindLastOrderCompletedUseCase findLastOrderCompletedUseCase;
+
+  @Mock
+  ApplyPromotionsUseCase applyPromotionsUseCase;
+  @Mock
+  ApplyPromotionForLatteUseCase applyPromotionForLatteUseCase;
   @InjectMocks
   ReceiptService receiptService;
 
@@ -65,8 +75,10 @@ class ReceiptServiceTest {
     completedOrder.setComplete(true);
 
     when(findLastOrderCompletedUseCase.getLastOrderCompleted()).thenReturn(Optional.of(completedOrder));
+    when(applyPromotionsUseCase.applyAndGetTheBestPromotion(any(Order.class))).thenReturn(Optional.ofNullable(new Promotion(1d, completedOrder.getItems(), applyPromotionForLatteUseCase)));
 
-    ResponseEntity<Resource> response = receiptService.getReceipt("pdf", Optional.of(completedOrder));
+
+    ResponseEntity<Resource> response = receiptService.getReceipt("pdf");
 
     byte[] contentExpected = Files.readAllBytes(Paths.get(System.getProperty("java.io.tmpdir") + "/receipt.pdf"));
 

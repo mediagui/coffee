@@ -4,6 +4,8 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 import com.inatlas.domain.entity.Order;
+import com.inatlas.domain.entity.Promotion;
+import com.inatlas.domain.usecase.ApplyPromotionsUseCase;
 import com.inatlas.domain.usecase.FindLastOrderCompletedUseCase;
 import com.inatlas.infra.exception.ReceiptNotGeneratedException;
 import org.apache.pdfbox.pdmodel.PDDocument;
@@ -29,14 +31,17 @@ import java.util.Optional;
 public class ReceiptService {
 
   private final FindLastOrderCompletedUseCase findLastOrderCompletedUseCase;
+  private final ApplyPromotionsUseCase applyPromotionsUseCase;
 
   /**
    * Constructs an instance of ReceiptService with the provided dependencies.
    *
    * @param findLastOrderCompletedUseCase The use case for finding the last completed order.
+   * @param applyPromotionsUseCase        The use case for applying promotions to an order.
    */
-  public ReceiptService(FindLastOrderCompletedUseCase findLastOrderCompletedUseCase) {
+  public ReceiptService(FindLastOrderCompletedUseCase findLastOrderCompletedUseCase, ApplyPromotionsUseCase applyPromotionsUseCase) {
     this.findLastOrderCompletedUseCase = findLastOrderCompletedUseCase;
+    this.applyPromotionsUseCase = applyPromotionsUseCase;
   }
 
   /**
@@ -46,15 +51,21 @@ public class ReceiptService {
    * @return A ResponseEntity containing the receipt as a Resource.
    * @throws IOException If an I/O error occurs while generating the receipt.
    */
-  public ResponseEntity<Resource> getReceipt(String format, Optional<Order>... orderCompleted) throws IOException {
+  public ResponseEntity<Resource> getReceipt(String format) throws IOException {
     // Se ha incluido un parámetro opcional para poder pasar un orderCompleted en los test (no debería hacerse así, pero quiero ahorrar tiempo) :-)
 
-    final Optional<Order> lastOrderCompleted = orderCompleted.length > 0 ? orderCompleted[0] : findLastOrderCompletedUseCase.getLastOrderCompleted();
+    final Optional<Order> lastOrderCompleted = findLastOrderCompletedUseCase.getLastOrderCompleted();
 
     if (lastOrderCompleted.isEmpty()) {
       return ResponseEntity.notFound().build();
     }
 
+
+    if ("pdf".equals(format)) {
+      Optional<Promotion> promotion = applyPromotionsUseCase.applyAndGetTheBestPromotion(lastOrderCompleted.get());
+
+      if(promotion.isPresent())
+        lastOrderCompleted.get().setPromotion(promotion.get().getName());
 
       // Generate the PDF file
       byte[] bytes = generatePDFReceipt(lastOrderCompleted);
@@ -63,14 +74,15 @@ public class ReceiptService {
       Resource resource = new ByteArrayResource(bytes);
 
       // Return the resource with the corresponding content type
-      if ("pdf".equals(format)) {
-        return ResponseEntity.ok().contentType(MediaType.APPLICATION_PDF).body(resource);
-      } else {
-        throw new UnsupportedOperationException("Not supported format");
-      }
+      return ResponseEntity.ok().contentType(MediaType.APPLICATION_PDF).body(resource);
 
 
+    } else {
+      throw new UnsupportedOperationException("Not supported format");
     }
+
+
+  }
 
 
   /*
@@ -107,7 +119,7 @@ public class ReceiptService {
    */
   byte[] writePDF(String[] lines) throws IOException {
 
-    if(lines.length == 0)
+    if (lines.length == 0)
       throw new IOException("No lines to write");
 
     try (PDDocument document = new PDDocument()) {

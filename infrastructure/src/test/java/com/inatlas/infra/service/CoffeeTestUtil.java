@@ -78,7 +78,7 @@ public class CoffeeTestUtil {
 
   public static OrderDTO generateOrderDTO(){
 
-    return new OrderDTO(generateOrderItemDTOList(),2d);
+    return new OrderDTO(generateOrderItemDTOList(),2d,"");
 
   }
 

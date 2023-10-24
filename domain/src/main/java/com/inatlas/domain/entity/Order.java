@@ -12,7 +12,7 @@ public class Order {
   private List<OrderItem> items;
   private double total;
 
-  private Promotion promotionApplied;
+  private String promotion;
 
   public Order(List<OrderItem> items) {
     this.items = items;
@@ -59,12 +59,12 @@ public class Order {
   }
 
 
-  public String getPromotionApplied() {
-    return promotionApplied.getName();
+  public String getPromotion() {
+    return promotion;
   }
 
-  public void setPromotionApplied(Promotion promotionApplied) {
-    this.promotionApplied = promotionApplied;
+  public void setPromotion(String promotion) {
+    this.promotion = promotion;
   }
 
   @Override
