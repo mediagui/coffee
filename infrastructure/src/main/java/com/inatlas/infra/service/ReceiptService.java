@@ -138,7 +138,8 @@ public class ReceiptService {
 
       contentStream.endText();
       contentStream.close();
-      document.save(System.getProperty("java.io.tmpdir") + "/receipt.pdf");
+      String fileSeparator = System.getProperty("file.separator");
+      document.save(System.getProperty("java.io.tmpdir") + fileSeparator +"receipt.pdf");
     }
     return Files.readAllBytes(Paths.get(System.getProperty("java.io.tmpdir") + "receipt.pdf"));
   }
