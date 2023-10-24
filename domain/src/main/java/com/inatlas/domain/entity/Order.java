@@ -12,6 +12,7 @@ public class Order {
   private List<OrderItem> items;
   private double total;
 
+  private Promotion promotionApplied;
 
   public Order(List<OrderItem> items) {
     this.items = items;
@@ -57,6 +58,14 @@ public class Order {
 
   }
 
+
+  public String getPromotionApplied() {
+    return promotionApplied.getName();
+  }
+
+  public void setPromotionApplied(Promotion promotionApplied) {
+    this.promotionApplied = promotionApplied;
+  }
 
   @Override
   public String toString() {
