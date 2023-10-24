@@ -11,7 +11,7 @@ import java.io.IOException;
 import java.util.NoSuchElementException;
 
 @ControllerAdvice
-public class ErrorController  {
+public class ErrorControllerAdvice {
 
   private final ErrorService errorService;
 
@@ -33,7 +33,7 @@ public class ErrorController  {
     return errorService.returnErrorResponse(HttpStatus.INTERNAL_SERVER_ERROR, ex);
   }
 
-  public ErrorController(ErrorService errorService) {
+  public ErrorControllerAdvice(ErrorService errorService) {
     this.errorService = errorService;
   }
 

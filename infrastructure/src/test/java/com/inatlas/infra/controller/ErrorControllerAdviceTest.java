@@ -1,7 +1,6 @@
 package com.inatlas.infra.controller;
 
 import com.inatlas.infra.api.dto.ErrorDTO;
-import com.inatlas.infra.api.dto.OrderDTO;
 import com.inatlas.infra.service.ErrorService;
 import org.junit.jupiter.api.*;
 import org.mockito.InjectMocks;
@@ -16,11 +15,11 @@ import java.util.NoSuchElementException;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.Mockito.*;
 
-class ErrorControllerTest {
+class ErrorControllerAdviceTest {
   @Mock
   ErrorService errorService;
   @InjectMocks
-  ErrorController errorController;
+  ErrorControllerAdvice errorControllerAdvice;
 
   AutoCloseable closeable;
 
@@ -43,7 +42,7 @@ class ErrorControllerTest {
 
     when(errorService.returnErrorResponse(HttpStatus.NOT_FOUND, ex)).thenReturn(expectedResponse);
 
-    ResponseEntity<ErrorDTO> actualResponse = errorController.handleNoSuchElementException(ex);
+    ResponseEntity<ErrorDTO> actualResponse = errorControllerAdvice.handleNoSuchElementException(ex);
 
     assertEquals(expectedResponse, actualResponse);
   }
@@ -56,7 +55,7 @@ class ErrorControllerTest {
 
     when(errorService.returnErrorResponse(HttpStatus.BAD_REQUEST, ex)).thenReturn(expectedResponse);
 
-    ResponseEntity<ErrorDTO> actualResponse = errorController.handleUnsupportedOperationException(ex);
+    ResponseEntity<ErrorDTO> actualResponse = errorControllerAdvice.handleUnsupportedOperationException(ex);
 
     assertEquals(expectedResponse, actualResponse);
   }
@@ -69,7 +68,7 @@ class ErrorControllerTest {
 
     when(errorService.returnErrorResponse(HttpStatus.INTERNAL_SERVER_ERROR, ex)).thenReturn(expectedResponse);
 
-    ResponseEntity<ErrorDTO> actualResponse = errorController.handleIOException(ex);
+    ResponseEntity<ErrorDTO> actualResponse = errorControllerAdvice.handleIOException(ex);
 
     assertEquals(expectedResponse, actualResponse);
   }
