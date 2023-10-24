@@ -1,93 +1,91 @@
-# Project Title
+# Coffee Shop
 
-One Paragraph of the project description
-
-Initially appeared on
-[gist](https://gist.github.com/PurpleBooth/109311bb0361f32d87a2). But the page cannot open anymore so that is why I have moved it here.
+An amazing coffee shop backend dispenser.
 
 ## Getting Started
 
-These instructions will give you a copy of the project up and running on
-your local machine for development and testing purposes. See deployment
-for notes on deploying the project on a live system.
+The project can be downloaded from [https://github.com/mediagui/coffee.git](https://github.com/mediagui/coffee.git)
+
+The commits are not as clear as they should be, because of the time constraints. (Sorry about that) :pray:
 
 ### Prerequisites
 
-Requirements for the software and other tools to build, test and push
-- [Example 1](https://www.example.com)
-- [Example 2](https://www.example.com)
+#### With Docker/Podman
+1. [Docker](https://docs.docker.com/install/) or [Podman](https://podman.io/getting-started/installation)
+2. Execute the dockerfile contained in the project root folder
+```bash
+docker build -t coffee .
+```
+3. Run the docker image
+```bash 
+docker run -p 8080:8080 coffee
+```
+4. Open the browser and go to [http://localhost:8080](http://localhost:8080)
+5. Enjoy the coffee :coffee:
 
-### Installing
+The endpoints are available at [http://localhost:8080/swagger-ui/](http://localhost:8080/swagger-ui/)
 
-A step by step series of examples that tell you how to get a development
-environment running
+#### Without Docker/Podman
+1. [Java 11](https://www.oracle.com/java/technologies/javase-jdk11-downloads.html)
+2. [Maven](https://maven.apache.org/install.html)
+3. Execute the following command in the project boot folder
+```bash
+mvn spring-boot:run
+```
 
-Say what the step will be
+For both options the H2 console is located in [http://localhost:8080/h2-console](http://localhost:8080/h2-console)
+To see the database content, the JDBC URL is `jdbc:h2:mem:testdb` and the user is `sa` with no password.
 
-    Give the example
+If you have any question, this info is available in the application.yml file in the boot module of the proyect.
 
-And repeat
-
-    until finished
-
-End with an example of getting some data out of the system or using it
-for a little demo
 
 ## Running the tests
 
-Explain how to run the automated tests for this system
+For running the test you can execute the following command in the project boot folder
+```bash
+  mvn clean test verify
+```
+With this option you will be able to see the test coverage in the following file
+```bash
+  coffeeshop/agregate-repor/target/site/jacoco/index.html
+```
+## External libraries used
 
-### Sample Tests
+ - Spring Boot 2.7.17
+ - Lombok 1.18.30
+ - Mockito 4.5.1
+ - Mapstruct 1.4.2
+ - Swagger 3.0
+ - Itext 5.5.13.3
 
-Explain what these tests test and why
+To see a complete dependency tree for each module, you can execute the following command in the project boot folder
+```bash
+  mvn dependency:tree
+``` 
+to get a result similar to this one
+```bash
+[INFO] --------------------------< com.inatlas:boot >--------------------------
+[INFO] Building boot 2.0-SNAPSHOT                                         [5/6]
+[INFO] --------------------------------[ jar ]---------------------------------
+[INFO] 
+[INFO] --- maven-dependency-plugin:3.3.0:tree (default-cli) @ boot ---
+[INFO] com.inatlas:boot:jar:2.0-SNAPSHOT
+[INFO] +- com.inatlas:domain:jar:1.0-SNAPSHOT:compile
+[INFO] +- com.inatlas:application:jar:2.0-SNAPSHOT:compile
+[INFO] |  \- junit:junit:jar:4.13.2:compile
+[INFO] |     \- org.hamcrest:hamcrest-core:jar:2.2:compile
+[INFO] |        \- org.hamcrest:hamcrest:jar:2.2:compile
+[INFO] +- com.inatlas:infrastructure:jar:1.0-SNAPSHOT:compile
+[INFO] |  +- org.mapstruct:mapstruct:jar:1.4.2.Final:compile
+[INFO] |  +- io.springfox:springfox-boot-starter:jar:3.0.0:compile
+[INFO] |  |  +- io.springfox:springfox-oas:jar:3.0.0:compile
+[INFO] |  |  |  +- io.swagger.core.v3:swagger-models:jar:2.1.2:compile
+[INFO] |  |  |  +- io.springfox:springfox-spi:jar:3.0.0:compile
+```
 
-    Give an example
-
-### Style test
-
-Checks if the best practices and the right coding style has been used.
-
-    Give an example
-
-## Deployment
-
-Add additional notes to deploy this on a live system
-
-## Built With
-
-- [Contributor Covenant](https://www.contributor-covenant.org/) - Used
-  for the Code of Conduct
-- [Creative Commons](https://creativecommons.org/) - Used to choose
-  the license
-
-## Contributing
-
-Please read [CONTRIBUTING.md](CONTRIBUTING.md) for details on our code
-of conduct, and the process for submitting pull requests to us.
-
-## Versioning
-
-We use [Semantic Versioning](http://semver.org/) for versioning. For the versions
-available, see the [tags on this
-repository](https://github.com/PurpleBooth/a-good-readme-template/tags).
+I tried to use [Semantic Versioning](http://semver.org/) for versioning. For the versions
+available
 
 ## Authors
+- **Miguel Angel Medina** 
 
-- **Billie Thompson** - *Provided README Template* -
-  [PurpleBooth](https://github.com/PurpleBooth)
-
-See also the list of
-[contributors](https://github.com/PurpleBooth/a-good-readme-template/contributors)
-who participated in this project.
-
-## License
-
-This project is licensed under the [CC0 1.0 Universal](LICENSE.md)
-Creative Commons License - see the [LICENSE.md](LICENSE.md) file for
-details
-
-## Acknowledgments
-
-- Hat tip to anyone whose code is used
-- Inspiration
-- etc
