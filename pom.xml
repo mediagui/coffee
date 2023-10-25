@@ -14,7 +14,45 @@
     <version>2.0-SNAPSHOT</version>
     <packaging>pom</packaging>
 
-    <name>CoffeeShop</name>
+    <name>${project.groupId}:${project.artifactId}</name>
+    <description />
+    <url />
+    <inceptionYear>2023</inceptionYear>
+    <organization>
+        <name>InAtlas</name>
+        <url>https://inatlas.com</url>
+    </organization>
+    <licenses/>
+
+    <modules>
+        <module>domain</module>
+        <module>application</module>
+        <module>infrastructure</module>
+        <module>boot</module>
+        <module>aggreate-report</module>
+        <module>check-style-tool</module>
+    </modules>
+
+    <scm>
+        <connection>${scm-connection}</connection>
+        <developerConnection>${scm-developer-connection}</developerConnection>
+        <url>${scm-url}</url>
+        <tag>${scm-tag}</tag>
+    </scm>
+
+    <distributionManagement>
+        <repository>
+            <id>InAtlas-artifacts</id>
+            <name>InAtlas Maven Repository</name>
+            <url/> <!-- URL de artifactory (maven-release-local)-->
+        </repository>
+        <snapshotRepository>
+            <id>inatlas-artifacts</id>
+            <name>InAtlas Maven Repository</name>
+            <url/><!-- URL de artifactory (maven-snapshot-local)-->
+        </snapshotRepository>
+        <site />
+    </distributionManagement>
 
 
     <properties>
@@ -49,35 +87,40 @@
         <!-- Jacoco -->
         <jacoco.minimum.line.coverage>0.80</jacoco.minimum.line.coverage>
         <jacoco.maximum.complexity.coverage>0.20</jacoco.maximum.complexity.coverage>
+        <!-- SCM -->
+        <scm-developer-connection>scm:git:https://github.com/mediagui/coffee.git</scm-developer-connection>
+        <scm-connection>scm:git:https://github.com/mediagui/coffee.git</scm-connection>
+        <scm-url>https://github.com/mediagui/coffee</scm-url>
+        <scm-tag>HEAD</scm-tag>
+        <project.scm.id>inatlas-scm-github</project.scm.id>
     </properties>
-
 
     <dependencyManagement>
         <dependencies>
             <!-- CoffeeShop -->
 
             <dependency>
-                <groupId>com.inatlas</groupId>
+                <groupId>${project.groupId}</groupId>
                 <artifactId>domain</artifactId>
-                <version>1.0-SNAPSHOT</version>
+                <version>${project.version}</version>
                 <scope>compile</scope>
             </dependency>
             <dependency>
-                <groupId>com.inatlas</groupId>
+                <groupId>${project.groupId}</groupId>
                 <artifactId>application</artifactId>
-                <version>2.0-SNAPSHOT</version>
+                <version>${project.version}</version>
                 <scope>compile</scope>
             </dependency>
             <dependency>
-                <groupId>com.inatlas</groupId>
+                <groupId>${project.groupId}</groupId>
                 <artifactId>infrastructure</artifactId>
-                <version>1.0-SNAPSHOT</version>
+                <version>${project.version}</version>
                 <scope>compile</scope>
             </dependency>
             <dependency>
-                <groupId>com.inatlas</groupId>
+                <groupId>${project.groupId}</groupId>
                 <artifactId>boot</artifactId>
-                <version>1.0-SNAPSHOT</version>
+                <version>${project.version}</version>
                 <scope>compile</scope>
             </dependency>
 
@@ -152,33 +195,88 @@
         </dependencies>
     </dependencyManagement>
 
-    <!-- Spring Boot -->
+    <repositories/>
+    <pluginRepositories/>
 
 
     <build>
-        <plugins>
-<!--            <plugin>-->
-<!--                <groupId>org.apache.maven.plugins</groupId>-->
-<!--                <artifactId>maven-jar-plugin</artifactId>-->
-<!--                <version>2.6</version>-->
-<!--                <executions>-->
-<!--                    <execution>-->
-<!--                        <goals>-->
-<!--                            <goal>jar</goal>-->
-<!--                        </goals>-->
-<!--                        <id>jar</id>-->
-<!--                    </execution>-->
-<!--                </executions>-->
-<!--                <configuration>-->
-<!--                    <archive>-->
-<!--                        <manifest>-->
-<!--                            <addClasspath>true</addClasspath>-->
-<!--                            <mainClass>com.inatlas.CoffeeShopApplication</mainClass>-->
-<!--                        </manifest>-->
-<!--                    </archive>-->
-<!--                </configuration>-->
-<!--            </plugin>-->
+        <finalName>${project.artifactId}-${project.version}</finalName>
 
+        <!-- Plugin Management -->
+        <pluginManagement>
+            <plugins>
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-release-plugin</artifactId>
+                    <version>3.0.1</version>
+                    <dependencies>
+                        <dependency>
+                            <groupId>org.apache.maven.release</groupId>
+                            <artifactId>maven-release-strategies</artifactId>
+                            <version>0.7.1</version>
+                        </dependency>
+
+                        <dependency>
+                            <groupId>org.apache.maven.release</groupId>
+                            <artifactId>maven-release-semver-policy</artifactId>
+                            <version>3.0.1</version>
+                        </dependency>
+                    </dependencies>
+                    <configuration>
+                        <arguments>-Dbuild.type=release -DskipEnforceSnapshots -DskipITs -DskipTests -DskipUTs</arguments>
+                        <goals>deploy</goals>
+                        <projectVersionPolicyId>SemVerVersionPolicy</projectVersionPolicyId>
+                        <releaseStrategyId>GithubReleaseStrategy</releaseStrategyId>
+                        <scmReleaseCommitComment>@{prefix} Prepare release @{releaseLabel}</scmReleaseCommitComment>
+                        <scmDevelopmentCommitComment>@{prefix} Prepare for next development iteration</scmDevelopmentCommitComment>
+                        <tagNameFormat>@{project.version}</tagNameFormat>
+                    </configuration>
+                </plugin>
+            </plugins>
+        </pluginManagement>
+
+        <plugins>
+            <!-- Enforcer -->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-enforcer-plugin</artifactId>
+                <executions>
+                    <execution>
+                        <id>enforce-versions</id>
+                        <phase>validate</phase>
+                        <goals>
+                            <goal>enforce</goal>
+                        </goals>
+                        <configuration>
+                            <rules>
+                                <requireMavenVersion>
+                                    <version>[3.6.3],[3.8.4]</version>
+                                </requireMavenVersion>
+                                <requireJavaVersion>
+                                    <version>[8,11),[17,21)</version>
+                                </requireJavaVersion>
+                            </rules>
+                        </configuration>
+                    </execution>
+                    <execution>
+                        <id>enforce-snapshots</id>
+                        <phase>validate</phase>
+                        <goals>
+                            <goal>enforce</goal>
+                        </goals>
+                        <configuration>
+                            <skip>${skipEnforceSnapshots}</skip>
+                            <rules>
+                                <requireSnapshotVersion>
+                                    <failWhenParentIsRelease>false</failWhenParentIsRelease>
+                                    <message>Final versions not allowed</message>
+                                </requireSnapshotVersion>
+                            </rules>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+            <!-- Compiler -->
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
@@ -195,37 +293,7 @@
                     </annotationProcessorPaths>
                 </configuration>
             </plugin>
-<!--            <plugin>-->
-<!--                <artifactId>maven-assembly-plugin</artifactId>-->
-<!--                <version>${maven-assembly-plugin.version}</version>-->
-<!--                <executions>-->
-<!--                    <execution>-->
-<!--                        <phase>package</phase>-->
-<!--                        <goals>-->
-<!--                            <goal>single</goal>-->
-<!--                        </goals>-->
-<!--                        <configuration>-->
-<!--                            <archive>-->
-<!--                                <manifest>-->
-<!--                                    <mainClass>com.inatlas.CoffeeShopApplication</mainClass>-->
-<!--                                </manifest>-->
-<!--                            </archive>-->
-<!--                            <descriptorRefs>-->
-<!--                                <descriptorRef>jar-with-dependencies</descriptorRef>-->
-<!--                            </descriptorRefs>-->
-<!--                        </configuration>-->
-<!--                    </execution>-->
-<!--                </executions>-->
-<!--            </plugin>-->
-<!--            <plugin>-->
-<!--                <groupId>org.springframework.boot</groupId>-->
-<!--                <artifactId>spring-boot-maven-plugin</artifactId>-->
-<!--                <version>2.7.16</version>-->
-<!--                <configuration>-->
-<!--                    <mainClass>com.inatlas.CoffeeShopApplication</mainClass>-->
-<!--                </configuration>-->
-<!--            </plugin>-->
-
+            <!-- JaCoCo -->
             <plugin>
                 <groupId>org.jacoco</groupId>
                 <artifactId>jacoco-maven-plugin</artifactId>
@@ -258,15 +326,86 @@
                     </execution>
                 </executions>
             </plugin>
+            <!-- Site -->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-site-plugin</artifactId>
+                <version>3.12.1</version>
+                <configuration>
+                </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-project-info-reports-plugin</artifactId>
+                <version>3.4.5</version>
+            </plugin>
+            <!-- Checkstyle -->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-checkstyle-plugin</artifactId>
+                <version>3.3.0</version>
+                <dependencies>
+                    <dependency>
+                        <groupId>com.inatlas</groupId>
+                        <artifactId>check-style-tool</artifactId>
+                        <version>1.0-SNAPSHOT</version>
+                    </dependency>
+                    <dependency>
+                        <groupId>com.puppycrawl.tools</groupId>
+                        <artifactId>checkstyle</artifactId>
+                        <version>10.12.4</version>
+                    </dependency>
+                    <dependency>
+                        <groupId>com.thomasjensen.checkstyle.addons</groupId>
+                        <artifactId>checkstyle-addons</artifactId>
+                        <version>7.0.1</version>
+                    </dependency>
+                </dependencies>
+                <configuration>
+                    <excludes>
+                        **/entity/*,
+                        **/enums/*,
+                        **/usecase/*UseCase.*,
+                        **/*Repository.*,
+                        **/*Mapper.*,
+                        **/*ControllerApi.*,
+                        **/*ApiUtil*.*,
+                        **/*Application.*,
+                        **/config/*,
+                        **/util/*
+                    </excludes>
+                    <configLocation>checkstyle.xml</configLocation>
+                    <consoleOutput>true</consoleOutput>
+                    <failsOnError>true</failsOnError>
+                    <linkXRef>false</linkXRef>
+                </configuration>
+                <executions>
+                    <execution>
+                        <goals>
+                            <goal>checkstyle-aggregate</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
         </plugins>
     </build>
-    <modules>
-        <module>domain</module>
-        <module>application</module>
-        <module>infrastructure</module>
-        <module>boot</module>
-        <module>aggreate-report</module>
-    </modules>
+    <!-- Reporting Section -->
+    <reporting>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-checkstyle-plugin</artifactId>
+                <version>3.3.0</version>
+                <configuration>
+                    <configLocation>check-style-tool/src/main/resources/checkstyle.xml</configLocation>
+                    <consoleOutput>true</consoleOutput>
+                    <failsOnError>true</failsOnError>
+                    <linkXRef>false</linkXRef>
+                </configuration>
+            </plugin>
+        </plugins>
+    </reporting>
 
+    <profiles/>
 
 </project>
