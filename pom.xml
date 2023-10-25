@@ -253,7 +253,7 @@
                                     <version>[3.6.3],[3.8.4]</version>
                                 </requireMavenVersion>
                                 <requireJavaVersion>
-                                    <version>[11,12),[17,18)</version>
+                                    <version>[8,11),[17,21)</version>
                                 </requireJavaVersion>
                             </rules>
                         </configuration>
