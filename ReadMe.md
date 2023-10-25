@@ -43,6 +43,16 @@ To see the database content, the JDBC URL is `jdbc:h2:mem:testdb` and the user i
 
 If you have any question, this info is available in the application.yml file in the boot module of the proyect.
 
+## How to make an order
+1. Showing the products available
+   * http://localhost:8080/api/v1/coffeeShop/products
+2. Add a product to an order
+   * http://localhost:8080/api/v1/coffeeShop/order/addProduct/1/4 (Cuatro Espressos)
+3. Pay the order
+   * http://localhost:8080/api/v1/coffeeShop/order/pay
+4. Get de receipt
+   * http://localhost:8080/api/v1/coffeeShop/receipt
+
 
 ## Running the tests
 
@@ -65,6 +75,19 @@ The endpoints are available at [http://localhost:8080/swagger-ui/](http://localh
 
 In the file Api Documentation.postman_collection.json you can find a Postman collection with the endpoints
 to test in the application.
+
+## App Architecture
+
+The application is divided in four modules and one for hosting the reports trying to follow the Hexagonal Architecture principles and others.
+
+The modules are:
+- boot: The main module of the application. It contains the main class and the configuration files.
+- domain: The domain module. It contains the domain classes and the interfaces for the repositories and use cases.
+- application: The application module. It contains the use cases implementation.
+- infrastructure: The infrastructure module. It contains the mappers, repositories implementations and the controllers.
+- aggregate-report: The module for hosting the reports.
+
+
 
 ## External libraries used
 
