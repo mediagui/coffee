@@ -30,7 +30,7 @@
         <module>infrastructure</module>
         <module>boot</module>
         <module>aggreate-report</module>
-        <module>check-style-tool</module>
+<!--        <module>check-style-tool</module>-->
     </modules>
 
     <scm>
