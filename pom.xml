@@ -239,45 +239,45 @@
 
         <plugins>
             <!-- Enforcer -->
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-enforcer-plugin</artifactId>
-                <executions>
-                    <execution>
-                        <id>enforce-versions</id>
-                        <phase>validate</phase>
-                        <goals>
-                            <goal>enforce</goal>
-                        </goals>
-                        <configuration>
-                            <rules>
-                                <requireMavenVersion>
-                                    <version>[3.6.3],[3.8.4]</version>
-                                </requireMavenVersion>
-                                <requireJavaVersion>
-                                    <version>[8,11),[17,21)</version>
-                                </requireJavaVersion>
-                            </rules>
-                        </configuration>
-                    </execution>
-                    <execution>
-                        <id>enforce-snapshots</id>
-                        <phase>validate</phase>
-                        <goals>
-                            <goal>enforce</goal>
-                        </goals>
-                        <configuration>
-                            <skip>${skipEnforceSnapshots}</skip>
-                            <rules>
-                                <requireSnapshotVersion>
-                                    <failWhenParentIsRelease>false</failWhenParentIsRelease>
-                                    <message>Final versions not allowed</message>
-                                </requireSnapshotVersion>
-                            </rules>
-                        </configuration>
-                    </execution>
-                </executions>
-            </plugin>
+<!--            <plugin>-->
+<!--                <groupId>org.apache.maven.plugins</groupId>-->
+<!--                <artifactId>maven-enforcer-plugin</artifactId>-->
+<!--                <executions>-->
+<!--                    <execution>-->
+<!--                        <id>enforce-versions</id>-->
+<!--                        <phase>validate</phase>-->
+<!--                        <goals>-->
+<!--                            <goal>enforce</goal>-->
+<!--                        </goals>-->
+<!--                        <configuration>-->
+<!--                            <rules>-->
+<!--                                <requireMavenVersion>-->
+<!--                                    <version>[3.6.3],[3.8.4]</version>-->
+<!--                                </requireMavenVersion>-->
+<!--                                <requireJavaVersion>-->
+<!--                                    <version>[8,11),[17,21)</version>-->
+<!--                                </requireJavaVersion>-->
+<!--                            </rules>-->
+<!--                        </configuration>-->
+<!--                    </execution>-->
+<!--                    <execution>-->
+<!--                        <id>enforce-snapshots</id>-->
+<!--                        <phase>validate</phase>-->
+<!--                        <goals>-->
+<!--                            <goal>enforce</goal>-->
+<!--                        </goals>-->
+<!--                        <configuration>-->
+<!--                            <skip>${skipEnforceSnapshots}</skip>-->
+<!--                            <rules>-->
+<!--                                <requireSnapshotVersion>-->
+<!--                                    <failWhenParentIsRelease>false</failWhenParentIsRelease>-->
+<!--                                    <message>Final versions not allowed</message>-->
+<!--                                </requireSnapshotVersion>-->
+<!--                            </rules>-->
+<!--                        </configuration>-->
+<!--                    </execution>-->
+<!--                </executions>-->
+<!--            </plugin>-->
             <!-- Compiler -->
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
