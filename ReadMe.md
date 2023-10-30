@@ -62,7 +62,7 @@ For running the test you can execute the following command in the project boot f
 ```
 With this option you will be able to see the test coverage in the following file
 ```bash
-  coffeeshop/agregate-repor/target/site/jacoco/index.html
+  coffeeshop/agregate-report/target/site/jacoco/index.html
 ```
 ### EndPoints Documentation
 The endpoints are available at [http://localhost:8080/swagger-ui/](http://localhost:8080/swagger-ui/)
@@ -128,4 +128,3 @@ available
 
 ## Authors
 - **Miguel Angel Medina** 
-

@@ -37,4 +37,3 @@ server:
     include-stacktrace: on_param
     include-exception: true
 debug: true
-
