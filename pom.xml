@@ -238,6 +238,7 @@
 
 
         <plugins>
+
             <!-- Enforcer -->
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
@@ -278,6 +279,7 @@
                     </execution>
                 </executions>
             </plugin>
+
 
             <!-- Compiler -->
             <plugin>
@@ -343,6 +345,7 @@
                 <version>3.4.5</version>
             </plugin>
 
+
             <!-- Checkstyle -->
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
@@ -392,11 +395,13 @@
                 </executions>
             </plugin>
 
+
         </plugins>
     </build>
     <!-- Reporting Section -->
     <reporting>
         <plugins>
+
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-checkstyle-plugin</artifactId>
@@ -421,6 +426,7 @@
                     </excludes>
                 </configuration>
             </plugin>
+
 
         </plugins>
     </reporting>
