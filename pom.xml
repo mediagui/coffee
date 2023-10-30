@@ -206,38 +206,80 @@
         <!-- Plugin Management -->
         <pluginManagement>
             <plugins>
-                <plugin>
-                    <groupId>org.apache.maven.plugins</groupId>
-                    <artifactId>maven-release-plugin</artifactId>
-                    <version>3.0.1</version>
-                    <dependencies>
-                        <dependency>
-                            <groupId>org.apache.maven.release</groupId>
-                            <artifactId>maven-release-strategies</artifactId>
-                            <version>0.7.1</version>
-                        </dependency>
+<!--                <plugin>-->
+<!--                    <groupId>org.apache.maven.plugins</groupId>-->
+<!--                    <artifactId>maven-release-plugin</artifactId>-->
+<!--                    <version>3.0.1</version>-->
+<!--                    <dependencies>-->
+<!--                        <dependency>-->
+<!--                            <groupId>org.apache.maven.release</groupId>-->
+<!--                            <artifactId>maven-release-strategies</artifactId>-->
+<!--                            <version>0.7.1</version>-->
+<!--                        </dependency>-->
 
-                        <dependency>
-                            <groupId>org.apache.maven.release</groupId>
-                            <artifactId>maven-release-semver-policy</artifactId>
-                            <version>3.0.1</version>
-                        </dependency>
-                    </dependencies>
-                    <configuration>
-                        <arguments>-Dbuild.type=release -DskipEnforceSnapshots -DskipITs -DskipTests -DskipUTs</arguments>
-                        <goals>deploy</goals>
-                        <projectVersionPolicyId>SemVerVersionPolicy</projectVersionPolicyId>
-                        <releaseStrategyId>GithubReleaseStrategy</releaseStrategyId>
-                        <scmReleaseCommitComment>@{prefix} Prepare release @{releaseLabel}</scmReleaseCommitComment>
-                        <scmDevelopmentCommitComment>@{prefix} Prepare for next development iteration</scmDevelopmentCommitComment>
-                        <tagNameFormat>@{project.version}</tagNameFormat>
-                    </configuration>
-                </plugin>
+<!--                        <dependency>-->
+<!--                            <groupId>org.apache.maven.release</groupId>-->
+<!--                            <artifactId>maven-release-semver-policy</artifactId>-->
+<!--                            <version>3.0.1</version>-->
+<!--                        </dependency>-->
+<!--                    </dependencies>-->
+<!--                    <configuration>-->
+<!--                        <arguments>-Dbuild.type=release -DskipEnforceSnapshots -DskipITs -DskipTests -DskipUTs</arguments>-->
+<!--                        <goals>deploy</goals>-->
+<!--                        <projectVersionPolicyId>SemVerVersionPolicy</projectVersionPolicyId>-->
+<!--                        <releaseStrategyId>GithubReleaseStrategy</releaseStrategyId>-->
+<!--                        <scmReleaseCommitComment>@{prefix} Prepare release @{releaseLabel}</scmReleaseCommitComment>-->
+<!--                        <scmDevelopmentCommitComment>@{prefix} Prepare for next development iteration</scmDevelopmentCommitComment>-->
+<!--                        <tagNameFormat>@{project.version}</tagNameFormat>-->
+<!--                    </configuration>-->
+<!--                </plugin>-->
             </plugins>
         </pluginManagement>
 
 
         <plugins>
+
+            <!-- Enforcer -->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-enforcer-plugin</artifactId>
+                <executions>
+                    <execution>
+                        <id>enforce-versions</id>
+                        <phase>validate</phase>
+                        <goals>
+                            <goal>enforce</goal>
+                        </goals>
+                        <configuration>
+                            <rules>
+                                <requireMavenVersion>
+                                    <version>[3.6.3],[3.8.4]</version>
+                                </requireMavenVersion>
+                                <requireJavaVersion>
+                                    <version>[8,11),[17,21)</version>
+                                </requireJavaVersion>
+                            </rules>
+                        </configuration>
+                    </execution>
+                    <execution>
+                        <id>enforce-snapshots</id>
+                        <phase>validate</phase>
+                        <goals>
+                            <goal>enforce</goal>
+                        </goals>
+                        <configuration>
+<!--                            <skip>${skipEnforceSnapshots}</skip>-->
+                            <rules>
+                                <requireSnapshotVersion>
+                                    <failWhenParentIsRelease>false</failWhenParentIsRelease>
+                                    <message>Final versions not allowed</message>
+                                </requireSnapshotVersion>
+                            </rules>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+
 
             <!-- Compiler -->
             <plugin>
@@ -304,11 +346,87 @@
             </plugin>
 
 
+            <!-- Checkstyle -->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-checkstyle-plugin</artifactId>
+                <version>3.3.0</version>
+                <dependencies>
+                    <dependency>
+                        <groupId>com.inatlas</groupId>
+                        <artifactId>check-style-tool</artifactId>
+                        <version>1.0-SNAPSHOT</version>
+                    </dependency>
+                    <dependency>
+                        <groupId>com.puppycrawl.tools</groupId>
+                        <artifactId>checkstyle</artifactId>
+                        <version>10.12.4</version>
+                    </dependency>
+                    <dependency>
+                        <groupId>com.thomasjensen.checkstyle.addons</groupId>
+                        <artifactId>checkstyle-addons</artifactId>
+                        <version>7.0.1</version>
+                    </dependency>
+                </dependencies>
+                <configuration>
+                    <excludes>
+                        **/entity/*,
+                        **/enums/*,
+                        **/usecase/*UseCase.*,
+                        **/*Repository.*,
+                        **/*Mapper.*,
+                        **/*ControllerApi.*,
+                        **/*ApiUtil*.*,
+                        **/*Application.*,
+                        **/config/*,
+                        **/util/*
+                    </excludes>
+                    <configLocation>checkstyle.xml</configLocation>
+                    <consoleOutput>true</consoleOutput>
+                    <failsOnError>true</failsOnError>
+                    <linkXRef>false</linkXRef>
+                </configuration>
+                <executions>
+                    <execution>
+                        <goals>
+                            <goal>checkstyle-aggregate</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+
+
         </plugins>
     </build>
     <!-- Reporting Section -->
     <reporting>
         <plugins>
+
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-checkstyle-plugin</artifactId>
+                <version>3.3.0</version>
+                <configuration>
+                    <configLocation>checkstyle.xml</configLocation>
+<!--                    <configLocation>check-style-tool/src/main/resources/checkstyle.xml</configLocation>-->
+                    <consoleOutput>true</consoleOutput>
+                    <failsOnError>false</failsOnError>
+                    <linkXRef>false</linkXRef>
+                    <excludes>
+                        **/entity/*,
+                        **/enums/*,
+                        **/usecase/*UseCase.*,
+                        **/*Repository.*,
+                        **/*Mapper.*,
+                        **/*ControllerApi.*,
+                        **/*ApiUtil*.*,
+                        **/*Application.*,
+                        **/config/*,
+                        **/util/*
+                    </excludes>
+                </configuration>
+            </plugin>
+
 
         </plugins>
     </reporting>
